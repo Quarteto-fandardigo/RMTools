@@ -15,7 +15,6 @@ class Componente{
     Map<String, int>? falhas,
   })  : extras = extras ?? {},
         falhas = falhas ?? {};
-
 }
 
 class Poder{
@@ -31,12 +30,15 @@ class Poder{
         falhas = falhas ?? {};
   }
 
+
+
+
 class Ficha{
 
   final int np ;
   final String nomeJogador;
   final String nomePersonagem;
-
+  
 
 
   Ficha(this.np,this.nomeJogador,this.nomePersonagem);
