@@ -10,7 +10,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+
+      title: 'RMTools',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'RMTools'),
     );
   }
 }
@@ -119,4 +120,9 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-//teste
+
+
+
+class fichaPage{
+  
+}
