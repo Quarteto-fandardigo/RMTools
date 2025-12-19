@@ -1,37 +1,77 @@
+class Modificador {
+  final String nome;
+  final int valor;
+  final bool porGraduacao;
+
+  Modificador({
+    required this.nome,
+    required this.valor,
+    required this.porGraduacao,
+  });
+}
+
+
 class Componente{
   final String nomeComponente;
   final String efeito;
   final int graduacao;
   final int custoBase;
-  final Map<String, int> extras;
-  final Map<String, int> falhas;
+  final Map<String, Modificador> extras;
+  final Map<String, Modificador> falhas;
 
   Componente({
     required this.nomeComponente,
     required this.efeito,
     required this.graduacao,
     required this.custoBase,
-    Map<String, int>? extras,
-    Map<String, int>? falhas,
+    Map<String, Modificador>? extras,
+    Map<String, Modificador>? falhas,
   })  : extras = extras ?? {},
         falhas = falhas ?? {};
+// extras ?? {}, se extras nao for nulo use ele,se for use {}
 }
 
 class Poder{
   final String nomePoder;
-  final Map<String,int> extras;
-  final Map<String,int> falhas;
+  final Map<String,Modificador> extras;
+  final Map<String,Modificador> falhas;
+  List<Componente> componentes = [];
 
   Poder({
     required this.nomePoder,
-    Map<String, int>? extras,
-    Map<String, int>? falhas,
+    Map<String, Modificador>? extras,
+    Map<String, Modificador>? falhas,
   })  : extras = extras ?? {},
         falhas = falhas ?? {};
   }
 
+class Vantagem {
+  final String nome;
+  final int graduacao;
+  final int custo;
 
+  Vantagem({
+    required this.nome,
+    required this.graduacao,
+    required this.custo,
+  });
+}
 
+class Pericia {
+
+  final String nome;
+  final int bonus;
+  final int graduacao;
+  final int custo;
+
+  Pericia({
+    required this.nome,
+    required this.graduacao,
+    required this.bonus,
+    required this.custo,
+  });
+
+}
 
 class Ficha{
 
@@ -39,9 +79,19 @@ class Ficha{
   final String nomeJogador;
   final String nomePersonagem;
   
-
-
+  Map<String, int> habilidades = {
+    'forca': 0,
+    'agilidade': 0,
+    'destreza': 0,
+    'luta': 0,
+    'intelecto': 0,
+    'prontidao': 0,
+    'presenca': 0,
+    'vigor': 0,
+  };
+  List<Vantagem> vantagens = [];
+  List<Pericia> pericias = [];
+  List<Poder> poderes = [];
   Ficha(this.np,this.nomeJogador,this.nomePersonagem);
-
 
 }
