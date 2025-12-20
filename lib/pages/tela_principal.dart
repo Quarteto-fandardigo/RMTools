@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
+import 'package:rmtools/pages/tela_ficha.dart';
 
 
 class TelaPrincipal extends StatelessWidget{
@@ -14,14 +15,14 @@ class TelaPrincipal extends StatelessWidget{
         body: Align(
         alignment: Alignment.topCenter,
         child: Padding(
-          padding: const EdgeInsets.only(top: 50),
+          padding: const EdgeInsets.only(top: 20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
                 
               //***Titulo*** 
               Text(
-                'RMTools',
+                "RMTools",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 50,
@@ -43,7 +44,14 @@ class TelaPrincipal extends StatelessWidget{
                 ),
 
                 //função botão
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TelaFicha(),
+                    )
+                  );
+                },
                   
                 //texto botão
                 child: const Text(
@@ -81,7 +89,7 @@ class TelaPrincipal extends StatelessWidget{
               
             
               //***espaçamento***
-              const SizedBox(height: 400),
+              const SizedBox(height: 440),
 
 
               //***TEXTO ABAIXO***
