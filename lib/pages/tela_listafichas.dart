@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rmtools/pages/tela_fichabasica.dart';
 import 'package:rmtools/pages/tela_principal.dart';
 
 
@@ -11,7 +12,7 @@ class TelaFicha extends StatefulWidget {
 
 
 class _TelaFichaState extends State<TelaFicha> {
-  List<String> fichas = ["Herói 1", "Herói 2", "Herói 2", "Herói 2", "Herói 2", "Herói 2", "Herói 2", "Herói 2", "Herói 2", "Herói 2", "Herói 2", "Herói 2"];
+  List<String> fichas = [];
 
   @override
   Widget build(BuildContext context) {
@@ -69,18 +70,21 @@ class _TelaFichaState extends State<TelaFicha> {
 
 
 
-              //***Botão Criar ficha***
+              //***Botão Adicionar ficha***
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(300, 100),
                 ),
                 onPressed: () {
-                  setState(() {
-                    fichas.add("Herói ${fichas.length + 1}");
-                  });
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TelaFichabasica()
+                    )
+                  );
                 },
                 child: const Text(
-                  "Criar ficha",
+                  "Adicionar ficha",
                   style: TextStyle(fontSize: 25),
                 ),
               ),

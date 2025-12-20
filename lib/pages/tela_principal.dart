@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
-import 'package:rmtools/pages/tela_ficha.dart';
+import 'package:rmtools/pages/tela_listafichas.dart';
 
 
 class TelaPrincipal extends StatelessWidget{
