@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+//import 'package:flutter/material.dart';
 
 class Modificador {
   final String nome;
@@ -136,19 +136,38 @@ class Ficha{
 Ficha criarFicha({ required int np ,required String nomeJogador ,required String nomePersonagem})
   {return Ficha.criar(np: np, nomeJogador: nomeJogador, nomePersonagem: nomePersonagem);}
 
-
 Ficha adicionarHabilidade({required Map<String,int> novashabilidades
-}){
-    novashabilidades.forEach((chave, valor) {
-    if (habilidades.containsKey(chave)) {
-      habilidades[chave] = valor;
-    }
-  });
+  }){
+      novashabilidades.forEach((chave, valor) {
+      if (habilidades.containsKey(chave)) {
+        habilidades[chave] = valor;
+      }
+    });
 
+    return this;
+
+  }
+
+Ficha adicionarPericia({ required String nome, required int bonus,required int graduacao,required int custo
+  }){
+    pericias.add(Pericia(nome:nome,bonus:bonus,graduacao:graduacao,custo:custo));
+    return this;
+
+  }
+
+Ficha adicionarVantagem({required String nome, required int graduacao, required int custo
+}){
+  vantagens.add(Vantagem(nome: nome, graduacao: graduacao, custo: custo));
+  return this;
+}
+
+Ficha adicionarPoderes({required String nome
+}){
+
+  poderes.add(Poder(nomePoder: nome));
   return this;
 
 }
-
 
 
 
