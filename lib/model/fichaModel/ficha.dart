@@ -139,5 +139,4 @@ class Ficha{
       nomePersonagem: '',
     );
   }
-
 }
