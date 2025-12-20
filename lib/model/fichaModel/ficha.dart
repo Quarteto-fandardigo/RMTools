@@ -133,7 +133,7 @@ class Ficha{
 
 
 // funcao para criar ficha
-Ficha criarFicha({ required int double ,required String nomeJogador ,required String nomePersonagem})  
+Ficha criarFicha({ required double np ,required String nomeJogador ,required String nomePersonagem})  
   {return Ficha.criar(np: np, nomeJogador: nomeJogador, nomePersonagem: nomePersonagem);}
 
 Ficha adicionarHabilidade({required Map<String,int> novashabilidades
