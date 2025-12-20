@@ -76,7 +76,7 @@ class Pericia {
 
 class Ficha{
 
-  final int np;
+  final double np;
   final String nomeJogador;
   final String nomePersonagem;
   
@@ -107,7 +107,7 @@ class Ficha{
 
   //factory usado para criar objetos, um construtor que decide como e se um objeto será criado, cabe logica dentro deste.
   factory Ficha.criar({
-    required int np,
+    required double np,
     required String nomeJogador,
     required String nomePersonagem
   }){
@@ -133,7 +133,7 @@ class Ficha{
 
 
 // funcao para criar ficha
-Ficha criarFicha({ required int np ,required String nomeJogador ,required String nomePersonagem})  
+Ficha criarFicha({ required int double ,required String nomeJogador ,required String nomePersonagem})  
   {return Ficha.criar(np: np, nomeJogador: nomeJogador, nomePersonagem: nomePersonagem);}
 
 Ficha adicionarHabilidade({required Map<String,int> novashabilidades
