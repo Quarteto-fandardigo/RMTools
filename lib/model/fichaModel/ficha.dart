@@ -129,12 +129,15 @@ class Ficha{
     );
   }
 
-  void criarFicha(){
+
+
+  void CriarFicha(){
     //logica para criar ficha 
-    final ficha = Ficha.criar(
+    return Ficha.criar(
       np: 0,
       nomeJogador: '',
       nomePersonagem: '',
     );
   }
+
 }
