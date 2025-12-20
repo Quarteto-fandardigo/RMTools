@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
 
-void main() {
-  runApp(
-    MaterialApp(
+class TelaPrincipal extends StatelessWidget{
+  const TelaPrincipal({super.key});
+
+  @override
+  Widget build(BuildContext context){
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         //Scafold evita a linha amarela(sublinhado) no que tiver acima(eu acho)
@@ -44,7 +47,7 @@ void main() {
                   
                   //texto botão
                   child: const Text(
-                    "Construir Ficha", 
+                    "Ficha", 
                     style: TextStyle(
                       fontSize: 25,
                     ),
@@ -90,11 +93,14 @@ void main() {
                     fontWeight: FontWeight.w500,
                   ),
                 )
+
+
+
               ],
             ),
           ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }
