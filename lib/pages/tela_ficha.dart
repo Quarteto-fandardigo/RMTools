@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rmtools/pages/tela_principal.dart';
 
 class TelaFicha extends StatelessWidget{
   const TelaFicha({super.key});
@@ -46,7 +47,38 @@ class TelaFicha extends StatelessWidget{
                     fontSize: 25,
                   ),
                 ),
-              )
+              ),
+
+
+              //***espaçamento***
+              const SizedBox(height: 400), 
+
+              //***Botao Voltar
+              ElevatedButton(
+
+                //tamanho botao
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(300, 100)
+                ),
+
+                //funcao botao
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TelaPrincipal(),
+                    ),
+                  );
+                },
+
+                //texto botao
+                child: const Text(
+                  "Voltar",
+                  style: TextStyle(
+                    fontSize: 25,
+                  ),
+                ),
+              ),
             ],
           ),
         )
