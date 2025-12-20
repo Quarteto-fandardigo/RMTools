@@ -133,13 +133,19 @@ class Ficha{
 
 
 
-  void CriarFicha(){
+  Ficha criarFicha(){
     //logica para criar ficha 
-    final ficha = Ficha.criar(
+    return Ficha.criar(
       np: 0,
       nomeJogador: '',
       nomePersonagem: '',
     );
   }
+
+  // Ficha excluirFicha(){
+
+  //   //
+
+  // }
 
 }
