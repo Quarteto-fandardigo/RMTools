@@ -10,7 +10,6 @@ class Modificador {
   });
 }
 
-
 class Componente{
   final String nomeComponente;
   final String efeito;
@@ -92,6 +91,55 @@ class Ficha{
   List<Vantagem> vantagens = [];
   List<Pericia> pericias = [];
   List<Poder> poderes = [];
-  Ficha(this.np,this.nomeJogador,this.nomePersonagem);
+  
+
+   Ficha._(
+    this.np,
+    this.nomeJogador,
+    this.nomePersonagem,
+    this.habilidades,
+    this.vantagens,
+    this.pericias,
+    this.poderes,
+  );
+
+  //factory usado para criar objetos, um construtor que decide como e se um objeto será criado, cabe logica dentro deste.
+  factory Ficha.criar({
+    required int np,
+    required String nomeJogador,
+    required String nomePersonagem
+  }){
+     return Ficha._(
+      np,
+      nomeJogador,
+      nomePersonagem,
+      {
+        'forca': 0,
+        'agilidade': 0,
+        'destreza': 0,
+        'luta': 0,
+        'intelecto': 0,
+        'prontidao': 0,
+        'presenca': 0,
+        'vigor': 0,
+      },
+      [],
+      [],
+      [],
+    );
+
+
+  }
+
+
+
+  void CriarFicha(){
+    //logica para criar ficha 
+    final ficha = Ficha.criar(
+      np: 0,
+      nomeJogador: '',
+      nomePersonagem: '',
+    );
+  }
 
 }
