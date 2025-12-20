@@ -108,7 +108,7 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
                   minimumSize: const Size(300, 100),
                 ),
                 onPressed: () {
-                  final teste = Ficha.criar(
+                  Ficha.criar(
                     np: valorNP,
                     nomeJogador: nomeJogador.text,
                     nomePersonagem: nomePersonagem.text
