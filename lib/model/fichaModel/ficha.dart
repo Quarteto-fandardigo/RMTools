@@ -127,11 +127,7 @@ class Ficha{
       [],
       [],
     );
-
-
   }
-
-
 
   void criarFicha(){
     //logica para criar ficha 
