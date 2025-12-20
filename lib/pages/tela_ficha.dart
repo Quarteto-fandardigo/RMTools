@@ -51,14 +51,14 @@ class TelaFicha extends StatelessWidget{
 
 
               //***espaçamento***
-              const SizedBox(height: 400), 
+              const SizedBox(height: 530), 
 
               //***Botao Voltar
               ElevatedButton(
 
                 //tamanho botao
                 style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(300, 100)
+                  minimumSize: const Size(100, 50)
                 ),
 
                 //funcao botao
