@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Modificador {
   final String nome;
   final int valor;
@@ -128,6 +130,28 @@ class Ficha{
       [],
     );
   }
+
+
+//funcao para criar ficha
+Ficha criarFicha({ required int np ,required String nomeJogador ,required String nomePersonagem})
+  {return Ficha.criar(np: np, nomeJogador: nomeJogador, nomePersonagem: nomePersonagem);}
+
+
+Ficha adicionarHabilidade({required Map<String,int> novashabilidades
+}){
+    novashabilidades.forEach((chave, valor) {
+    if (habilidades.containsKey(chave)) {
+      habilidades[chave] = valor;
+    }
+  });
+
+  return this;
+
 }
 
-//teste 
+
+
+
+}
+
+
