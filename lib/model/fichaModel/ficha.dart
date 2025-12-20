@@ -74,7 +74,7 @@ class Pericia {
 
 class Ficha{
 
-  final int np ;
+  final int np;
   final String nomeJogador;
   final String nomePersonagem;
   
@@ -133,7 +133,7 @@ class Ficha{
 
 
 
-  void CriarFicha(){
+  void criarFicha(){
     //logica para criar ficha 
     final ficha = Ficha.criar(
       np: 0,
@@ -141,5 +141,4 @@ class Ficha{
       nomePersonagem: '',
     );
   }
-
 }

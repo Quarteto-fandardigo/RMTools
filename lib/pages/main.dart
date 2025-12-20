@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rmtools/pages/TelaPrincipal.dart';
+import 'package:rmtools/pages/tela_principal.dart';
 
 
 class MyApp extends StatelessWidget{
@@ -13,7 +13,6 @@ class MyApp extends StatelessWidget{
     );
   }
 }
-
 void main() {
   runApp(
     const MyApp()
