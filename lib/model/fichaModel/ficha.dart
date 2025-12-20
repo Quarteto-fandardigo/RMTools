@@ -130,4 +130,4 @@ class Ficha{
   }
 }
 
-//teste para dar certo tudo nessa porra
+//teste 
