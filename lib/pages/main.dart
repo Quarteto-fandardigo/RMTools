@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rmtools/pages/tela_principal.dart';
 
+//COR BG(BACKGROUND) = 255, 21, 22, 34
+//COR BOTOES = COLOR.WHITE
 
 class MyApp extends StatelessWidget{
   const MyApp({super.key});

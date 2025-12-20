@@ -128,15 +128,6 @@ class Ficha{
       [],
     );
   }
-
-
-
-  void CriarFicha(){
-    //logica para criar ficha 
-    return Ficha.criar(
-      np: 0,
-      nomeJogador: '',
-      nomePersonagem: '',
-    );
-  }
 }
+
+//teste para dar certo tudo nessa porra
