@@ -282,7 +282,6 @@ class Ficha{
 Ficha criarFicha({ required double np ,required String nomeJogador ,required String nomePersonagem})  
   {return Ficha.criar(np: np, nomeJogador: nomeJogador, nomePersonagem: nomePersonagem);}
 
-
 Ficha adicionarHabilidade({required Map<String,int> novashabilidades
   }){
       novashabilidades.forEach((chave, valor) {
@@ -295,14 +294,12 @@ Ficha adicionarHabilidade({required Map<String,int> novashabilidades
 
   }
 
-
 Ficha adicionarPericia({ required String nome, required int bonus,required int graduacao,required int custo
   }){
     pericias.add(Pericia(nome:nome,bonus:bonus,graduacao:graduacao,custo:custo));
     return this;
 
   }
-
 
 Ficha adicionarVantagem({required String nome, required int graduacao, required int custo
 }){
@@ -317,6 +314,39 @@ Ficha adicionarPoderes({required String nome
   return this;
 
 }
+
+
+Map<String, dynamic> toJson() {
+  return {
+    'np': np,
+    'nomeJogador': nomeJogador,
+    'nomePersonagem': nomePersonagem,
+    'habilidades': habilidades,
+    'vantagens': vantagens.map((v) => v.toJson()).toList(),
+    'pericias': pericias.map((p) => p.toJson()).toList(),
+    'poderes': poderes.map((p) => p.toJson()).toList(),
+  };
+}
+
+factory Ficha.fromJson(Map<String, dynamic> json) {
+  return Ficha._(
+    (json['np'] as num).toDouble(),
+    json['nomeJogador'],
+    json['nomePersonagem'],
+    Map<String, int>.from(json['habilidades']),
+    (json['vantagens'] as List<dynamic>)
+        .map((v) => Vantagem.fromJson(v))
+        .toList(),
+    (json['pericias'] as List<dynamic>)
+        .map((p) => Pericia.fromJson(p))
+        .toList(),
+    (json['poderes'] as List<dynamic>)
+        .map((p) => Poder.fromJson(p))
+        .toList(),
+  );
+}
+
+
 
 
 }
