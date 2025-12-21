@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rmtools/pages/tela_listafichas.dart';
 import 'package:rmtools/model/fichaModel/ficha.dart';
 
 class TelaFichabasica extends StatefulWidget {
