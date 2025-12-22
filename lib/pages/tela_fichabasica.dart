@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rmtools/model/fichaModel/ficha.dart';
+import 'package:rmtools/pages/tela_listafichas.dart';
 
 class TelaFichabasica extends StatefulWidget {
   const TelaFichabasica({super.key});
@@ -94,6 +95,11 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
                     valorNP = novoValor;
                   });
                 }
+              ),
+
+              
+              Stack(
+                
               ),
 
 
