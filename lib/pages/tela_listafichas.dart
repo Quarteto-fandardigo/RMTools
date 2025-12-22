@@ -3,15 +3,15 @@ import 'package:rmtools/pages/tela_fichabasica.dart';
 import 'package:rmtools/pages/tela_principal.dart';
 
 
-class TelaFicha extends StatefulWidget { 
-  const TelaFicha({super.key}); 
+class TelaListaFicha extends StatefulWidget { 
+  const TelaListaFicha({super.key}); 
   
   @override
-  State<TelaFicha> createState() => _TelaFichaState();
+  State<TelaListaFicha> createState() => _TelaFichaState();
 }
 
 
-class _TelaFichaState extends State<TelaFicha> {
+class _TelaFichaState extends State<TelaListaFicha> {
   List<String> fichas = [];
 
   @override

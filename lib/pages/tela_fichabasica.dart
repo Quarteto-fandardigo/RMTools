@@ -99,7 +99,7 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
 
 
               //***espaçamento***
-              const SizedBox(height: 350),
+              const SizedBox(height: 280),
               
 
               //***Botao Criar Ficha***
@@ -119,6 +119,30 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
                   style: TextStyle(fontSize: 25),
                 ),
               ),
+              
+              
+              //***espaçamento***
+              const SizedBox(height: 40),
+
+
+              //***Botão Voltar***
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(100, 50),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TelaListaFicha(),
+                    ),
+                  );
+                },
+                child: const Text(
+                  "Voltar",
+                  style: TextStyle(fontSize: 25),
+                ),
+              ),
             ]
           )
         )
@@ -126,4 +150,3 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
     );
   }
 }
-

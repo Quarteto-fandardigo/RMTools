@@ -48,7 +48,7 @@ class TelaPrincipal extends StatelessWidget{
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const TelaFicha(),
+                      builder: (context) => const TelaListaFicha(),
                     )
                   );
                 },
