@@ -1,4 +1,7 @@
 //import 'package:flutter/material.dart';
+// import 'dart:convert';
+// import 'dart:io';
+// import 'package:path_provider/path_provider.dart';
 
 class Modificador {
   final String nome;
@@ -10,6 +13,25 @@ class Modificador {
     required this.valor,
     required this.porGraduacao,
   });
+
+  Map<String,dynamic> toJson(){
+    return{
+      'nome':nome,
+      'valor':valor,
+      'porGraduacao':porGraduacao
+    };
+  }
+
+  factory Modificador.fromJson(Map<String,dynamic> json){
+    return Modificador(
+      nome: json['nome'],
+      valor: json['valor'],
+      porGraduacao: json['porGraduacao']
+    );
+  }
+
+
+
 }
 
 class Componente{
@@ -30,6 +52,44 @@ class Componente{
   })  : extras = extras ?? {},
         falhas = falhas ?? {};
 // extras ?? {}, se extras nao for nulo use ele,se for use {}
+
+
+  Map<String,dynamic> toJson(){
+    return{
+      'nomeComponente':nomeComponente,
+      'efeito':efeito,
+      'graduacao':graduacao,
+      'custoBase':custoBase,
+       'extras': extras.map(
+      (key, value) => MapEntry(key, value.toJson()),
+    ),
+    'falhas': falhas.map(
+      (key, value) => MapEntry(key, value.toJson()),
+    ),
+    };
+  }
+
+  factory Componente.fromJson(Map<String,dynamic>json){
+    return Componente(
+      nomeComponente: json['nomeComponente'],
+      efeito: json['efeito'],
+      graduacao: json['graduacao'],
+      custoBase: json['custoBase'],
+      extras: json['extras'] != null
+        ? (json['extras'] as Map<String, dynamic>)
+            .map((key, value) =>
+                MapEntry(key, Modificador.fromJson(value)))
+        : {},
+    falhas: json['falhas'] != null
+        ? (json['falhas'] as Map<String, dynamic>)
+            .map((key, value) =>
+                MapEntry(key, Modificador.fromJson(value)))
+        : {},
+    );
+
+
+  } 
+
 }
 
 class Poder{
@@ -42,9 +102,52 @@ class Poder{
     required this.nomePoder,
     Map<String, Modificador>? extras,
     Map<String, Modificador>? falhas,
+    
   })  : extras = extras ?? {},
         falhas = falhas ?? {};
+
+
+  Map<String,dynamic> toJson(){
+    return{
+      'nomePoder':nomePoder,
+      'extras': extras.map(
+      (key, value) => MapEntry(key, value.toJson()),
+    ),
+    'falhas': falhas.map(
+      (key, value) => MapEntry(key, value.toJson()),
+    ),
+    'componentes': componentes.map((c) => c.toJson()).toList()
+    
+    };
   }
+
+ factory Poder.fromJson(Map<String, dynamic> json) {
+  final poder = Poder(
+    nomePoder: json['nomePoder'],
+    extras: json['extras'] != null
+        ? (json['extras'] as Map<String, dynamic>)
+            .map((key, value) =>
+                MapEntry(key, Modificador.fromJson(value)))
+        : {},
+    falhas: json['falhas'] != null
+        ? (json['falhas'] as Map<String, dynamic>)
+            .map((key, value) =>
+                MapEntry(key, Modificador.fromJson(value)))
+        : {},
+  );
+
+  // AQUI entra a lista de componentes
+  if (json['componentes'] != null) {
+    poder.componentes.addAll(
+      (json['componentes'] as List<dynamic>)
+          .map((c) => Componente.fromJson(c)),
+    );
+  }
+
+  return poder;
+  }
+
+}
 
 class Vantagem {
   final String nome;
@@ -56,6 +159,28 @@ class Vantagem {
     required this.graduacao,
     required this.custo,
   });
+
+
+  Map<String,dynamic> toJson(){
+    return{
+      'nome':nome,
+      'graduacao':graduacao,
+      'custo':custo
+    };
+  }
+
+
+  factory Vantagem.fromJson(Map<String,dynamic>json){
+    return Vantagem(
+      nome: json['nome'],
+      graduacao: json['graduacao'],
+      custo: json['custo']
+    );
+  }
+
+
+
+
 }
 
 class Pericia {
@@ -71,6 +196,27 @@ class Pericia {
     required this.bonus,
     required this.custo,
   });
+
+
+  Map<String,dynamic> toJson(){
+    return {
+      'nome':nome,
+      'graduacao':graduacao,
+      'bonus':bonus,
+      'custo':custo
+    };
+  }
+
+  factory Pericia.fromJson(Map<String,dynamic> json){
+    return Pericia(
+      nome:json['nome'],
+      graduacao: json['graduacao'],
+      bonus: json['bonus'],
+      custo: json['custo']
+    );
+
+  }
+
 
 }
 
@@ -168,6 +314,38 @@ Ficha adicionarPoderes({required String nome
   return this;
 
 }
+
+
+Map<String, dynamic> toJson() {
+  return {
+    'np': np,
+    'nomeJogador': nomeJogador,
+    'nomePersonagem': nomePersonagem,
+    'habilidades': habilidades,
+    'vantagens': vantagens.map((v) => v.toJson()).toList(),
+    'pericias': pericias.map((p) => p.toJson()).toList(),
+    'poderes': poderes.map((p) => p.toJson()).toList(),
+  };
+}
+
+factory Ficha.fromJson(Map<String, dynamic> json) {
+  return Ficha._(
+    (json['np'] as num).toDouble(),
+    json['nomeJogador'],
+    json['nomePersonagem'],
+    Map<String, int>.from(json['habilidades']),
+    (json['vantagens'] as List<dynamic>)
+        .map((v) => Vantagem.fromJson(v))
+        .toList(),
+    (json['pericias'] as List<dynamic>)
+        .map((p) => Pericia.fromJson(p))
+        .toList(),
+    (json['poderes'] as List<dynamic>)
+        .map((p) => Poder.fromJson(p))
+        .toList(),
+  );
+}
+
 
 
 
