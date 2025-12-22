@@ -12,13 +12,14 @@ class TelaFichabasica extends StatefulWidget {
 class _TelaFichabasicaState extends State<TelaFichabasica> {
   final nomeJogador = TextEditingController();
   final nomePersonagem = TextEditingController();
-  double valorNP = 0;
+  double valorNP = 1;
   bool erro = false;
   bool sucesso = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: const Color.fromARGB(255, 21, 22, 34),
       body: Stack(
         alignment: Alignment.center,
@@ -83,7 +84,7 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
                   //***Slider***
                   Slider(
                     value: valorNP,
-                    min: 0,
+                    min: 1,
                     max: 50,
                     divisions: 50,
                     label: valorNP.round().toString(),
