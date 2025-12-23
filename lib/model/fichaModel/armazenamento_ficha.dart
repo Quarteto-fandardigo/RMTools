@@ -54,10 +54,10 @@ class FichaRepository {
   }
 
 
-  Future <List<String>?> carregarCampo<String>(String campo) async {
+Future<List<String>?> carregarCampo(String campo) async {
   final file = await _file();
   if (!await file.exists()) return null;
-  
+
   final jsonMap = jsonDecode(await file.readAsString());
   final valor = jsonMap[campo];
 
