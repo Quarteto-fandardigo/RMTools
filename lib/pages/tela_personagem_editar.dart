@@ -37,8 +37,137 @@ class _TelaPersonagemEditarState extends State<TelaPersonagemEditar> {
                   ),
                 ),
 
-                SizedBox(height: 1000),
 
+                //***espaçamento***
+                const SizedBox(height: 40),
+
+
+                //***BOTÃO info basica***
+                ElevatedButton(
+                    
+                  //tamanho botão
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(300, 100)
+                  ),
+
+                  //função botão
+                  onPressed: () {},
+                    
+                  //texto botão
+                  child: const Text(
+                    "Informações básicas", 
+                    style: TextStyle(
+                      fontSize: 25,
+                    ),
+                  ),
+                ),
+
+
+                //***espaçamento***
+                const SizedBox(height: 40),
+
+
+                //***BOTÃO info basica***
+                ElevatedButton(
+                  
+                //tamanho botão
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(300, 100)
+                ),
+
+                //função botão
+                onPressed: () {},
+                  
+                //texto botão
+                child: const Text(
+                  "Habilidades", 
+                  style: TextStyle(
+                    fontSize: 25,
+                    ),
+                  ),
+                ),
+                
+
+                //***espaçamento***
+                const SizedBox(height: 40),
+
+
+                //***BOTÃO info basica***
+                ElevatedButton(
+                  
+                //tamanho botão
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(300, 100)
+                ),
+
+                //função botão
+                onPressed: () {},
+                  
+                //texto botão
+                child: const Text(
+                  "Perícias", 
+                  style: TextStyle(
+                    fontSize: 25,
+                    ),
+                  ),
+                ),
+
+
+                //***espaçamento***
+                const SizedBox(height: 40),
+
+
+                //***BOTÃO info basica***
+                ElevatedButton(
+                  
+                //tamanho botão
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(300, 100)
+                ),
+
+                //função botão
+                onPressed: () {},
+                  
+                //texto botão
+                child: const Text(
+                  "Vantagens", 
+                  style: TextStyle(
+                    fontSize: 25,
+                    ),
+                  ),
+                ),
+
+
+                //***espaçamento***
+                const SizedBox(height: 40),
+
+
+                //***BOTÃO info basica***
+                ElevatedButton(
+                  
+                //tamanho botão
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(300, 100)
+                ),
+
+                //função botão
+                onPressed: () {},
+                  
+                //texto botão
+                child: const Text(
+                  "Poderes", 
+                  style: TextStyle(
+                    fontSize: 25,
+                    ),
+                  ),
+                ),
+
+
+                //***espaçamento***
+                const SizedBox(height: 40),
+
+
+                //***Botao Voltar***
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(100, 50),
