@@ -31,19 +31,19 @@ import 'package:rmtools/model/fichaModel/ficha.dart';
 
 class FichaRepository {
 
-  Future<File> _file() async {
+  Future<File> _file(String nomePersonagem) async {
     final dir = Directory('/storage/emulated/0/Download');
-    return File('${dir.path}/ficha.json');
+    return File('${dir.path}/$nomePersonagem.json');
   }
 
   Future<void> salvar(Ficha ficha) async {
-    final file = await _file();
+    final file = await _file(ficha.nomePersonagem);
     final jsonString = jsonEncode(ficha.toJson());
     await file.writeAsString(jsonString);
   }
 
-  Future<Ficha?> carregar() async {
-    final file = await _file();
+  Future<Ficha?> carregar(String nomePersonagem) async {
+    final file = await _file(nomePersonagem);
 
     if (!await file.exists()) return null;
 
@@ -54,19 +54,19 @@ class FichaRepository {
   }
 
 
-Future<String?> carregarCampo(String campo) async {
-  final file = await _file();
-  if (!await file.exists()) return null;
+  Future<String?> carregarCampo(String campo,String nomePersonagem) async {
+    final file = await _file(nomePersonagem);
+    if (!await file.exists()) return null;
 
-  final jsonMap = jsonDecode(await file.readAsString());
-  final valor = jsonMap[campo];
+    final jsonMap = jsonDecode(await file.readAsString());
+    final valor = jsonMap[campo];
 
-  if (valor is String) {
-    return valor;
+    if (valor is String) {
+      return valor;
+    }
+
+    return null;
   }
-
-  return null;
-}
 
 
 
