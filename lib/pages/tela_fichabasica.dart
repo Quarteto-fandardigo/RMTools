@@ -12,13 +12,14 @@ class TelaFichabasica extends StatefulWidget {
 class _TelaFichabasicaState extends State<TelaFichabasica> {
   final nomeJogador = TextEditingController();
   final nomePersonagem = TextEditingController();
-  double valorNP = 0;
+  double valorNP = 1;
   bool erro = false;
   bool sucesso = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: const Color.fromARGB(255, 21, 22, 34),
       body: Stack(
         alignment: Alignment.center,
@@ -29,6 +30,9 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
               padding: const EdgeInsets.only(top: 20),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+                
+                
+                //***Titulo***
                 children: [
                   const Text(
                     "Informações Básicas",
@@ -37,7 +41,13 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
                       color: Colors.white,
                     ),
                   ),
+
+                  
+                  //***Espaçamento***
                   const SizedBox(height: 40),
+                  
+                  
+                  //***Campo Nome jogador***
                   SizedBox(
                     width: 300,
                     height: 100,
@@ -52,6 +62,9 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
                       ),
                     ),
                   ),
+
+
+                  //***Campo Nome do personagem***
                   SizedBox(
                     width: 300,
                     height: 100,
@@ -66,9 +79,12 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
                       ),
                     ),
                   ),
+
+
+                  //***Slider***
                   Slider(
                     value: valorNP,
-                    min: 0,
+                    min: 1,
                     max: 50,
                     divisions: 50,
                     label: valorNP.round().toString(),
@@ -78,21 +94,31 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
                       });
                     },
                   ),
+
+                  
+                  //***Espaçamento***
                   const SizedBox(height: 280),
+
+
+                  //***Botao Cria ficha***
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size(300, 100),
                     ),
-                    onPressed: () {
+                    onPressed: () async{
+                      final navigator = Navigator.of(context);
+
+                      if (nomeJogador.text.isEmpty || nomePersonagem.text.isEmpty){
+                        setState(() {
+                          erro = true;
+                          sucesso = false;
+                        });
+                        return;
+                      }
+
                       setState(() {
                         erro = false;
                         sucesso = false;
-
-                        if (nomeJogador.text.isEmpty ||
-                            nomePersonagem.text.isEmpty) {
-                          erro = true;
-                          return;
-                        }
 
                         Ficha.criar(
                           np: valorNP,
@@ -102,13 +128,31 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
 
                         sucesso = true;
                       });
+
+                      await Future.delayed(const Duration(seconds: 2));
+
+                      if(!mounted){
+                        return;
+                      }
+
+                      navigator.push(
+                          MaterialPageRoute(
+                            builder: (context) => const TelaListaFicha(),
+                          )
+                      );   
                     },
                     child: const Text(
                       "Criar ficha",
                       style: TextStyle(fontSize: 25),
                     ),
                   ),
+
+
+                  //***Espaçamento***
                   const SizedBox(height: 40),
+
+
+                  //***Botao Voltar***
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size(100, 50),
@@ -130,6 +174,8 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
               ),
             ),
           ),
+
+          //erro
           if (erro)
             Container(
               padding: const EdgeInsets.all(16),
@@ -142,6 +188,8 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
                 ),
               ),
             ),
+
+          //sucesso
           if (sucesso)
             Container(
               padding: const EdgeInsets.all(16),
