@@ -178,20 +178,19 @@ class _TelaFichaState extends State<TelaListaFicha> {
                                             //***Excluir***
                                             TextButton(
                                               onPressed: () async {
-                                                //Isso aqui deleta o arquivo Json que contem o personagem(ficha)
-                                                await FichaRepository().excluir(fichas[selecionado!]);
+                                                final repo = FichaRepository();
+                                                await repo.excluir(fichas[selecionado!]);
 
                                                 setState(() {
-                                                  fichas.removeAt(selecionado!);
+                                                  fichas.removeAt(selecionado!); 
                                                   selecionado = null;
                                                 });
-                                                Navigator.of(context).pop();//<-- fecha o pop-up
+
+                                                Navigator.of(context).pop();
                                               },
-                                              child: Text(
+                                              child: const Text(
                                                 "Excluir",
-                                                style: TextStyle(
-                                                  color: Colors.grey
-                                                ),
+                                                style: TextStyle(color: Colors.redAccent),
                                               ),
                                             ),
                                           ],

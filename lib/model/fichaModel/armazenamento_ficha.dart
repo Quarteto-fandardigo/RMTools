@@ -90,11 +90,11 @@ class FichaRepository {
 
     return nomes;
   }
-  Future<void> excluir(String nomePersonagem) async{
-    final arquivoFicha = await _file(nomePersonagem);
-
-    if(await arquivoFicha.exists()){
-      await arquivoFicha.delete();
+  Future<void> excluir(String nomePersonagem) async {
+    final file = await _file(nomePersonagem);
+    
+    if (await file.exists()) {
+      await file.delete(); 
     }
   }
 }
