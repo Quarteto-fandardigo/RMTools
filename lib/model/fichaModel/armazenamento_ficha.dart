@@ -68,13 +68,26 @@ class FichaRepository {
     return null;
   }
 
+  Future<List<String>> listarFichas() async {
+    final dir = Directory('/storage/emulated/0/Download');
 
+    if (!await dir.exists()) return [];
 
+    final arquivos = dir.listSync().whereType<File>().where((f) => f.path.endsWith('.json'));
+
+    List<String> nomes = [];
+    
+    for (var f in arquivos) {
+      final jsonString = await f.readAsString();
+      final jsonMap = jsonDecode(jsonString);
+      
+      if (jsonMap['nomePersonagem'] != null) {
+        nomes.add(jsonMap['nomePersonagem']);
+      } else {
+        nomes.add(f.uri.pathSegments.last.replaceAll('.json', ''));
+      }
+    }
+
+    return nomes;
+  }
 }
-
-
-
-
-
-
-

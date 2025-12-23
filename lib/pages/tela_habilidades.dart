@@ -24,7 +24,16 @@ class _TelaHabilidadesState extends State<TelaHabilidades> {
             children: [
 
               //***Titulo***
-              Text("")
+              Text(
+                "Habilidades",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 50,
+                  fontWeight: FontWeight.w500
+                ),
+
+                
+              ),
             ],
           )
         ),
