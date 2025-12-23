@@ -26,13 +26,13 @@
 
 import 'dart:convert';
 import 'dart:io';
-import 'package:path_provider/path_provider.dart';
+// import 'package:path_provider/path_provider.dart';
 import 'package:rmtools/model/fichaModel/ficha.dart';
 
 class FichaRepository {
 
   Future<File> _file() async {
-    final dir = await getApplicationDocumentsDirectory();
+    final dir = Directory('/storage/emulated/0/Download');
     return File('${dir.path}/ficha.json');
   }
 
