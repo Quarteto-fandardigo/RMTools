@@ -154,12 +154,12 @@ class Poder{
 class Vantagem {
   final String nome;
   final int graduacao;
-  final int custo;
+  
 
   Vantagem({
     required this.nome,
     required this.graduacao,
-    required this.custo,
+    
   });
 
 
@@ -167,7 +167,6 @@ class Vantagem {
     return{
       'nome':nome,
       'graduacao':graduacao,
-      'custo':custo
     };
   }
 
@@ -176,17 +175,11 @@ class Vantagem {
     return Vantagem(
       nome: json['nome'],
       graduacao: json['graduacao'],
-      custo: json['custo']
     );
   }
 
 
 
-  bool alterarVantagem(){
-
-
-    return true;
-  }
 
 
 }
@@ -196,13 +189,13 @@ class Pericia {
   final String nome;
   int? bonus;
   final int graduacao;
-  final int custo;
+  
 
   Pericia({
     required this.nome,
     required this.graduacao,
     this.bonus,
-    required this.custo,
+    
   });
 
 
@@ -211,7 +204,7 @@ class Pericia {
       'nome':nome,
       'graduacao':graduacao,
       'bonus':bonus,
-      'custo':custo
+      
     };
   }
 
@@ -220,7 +213,7 @@ class Pericia {
       nome:json['nome'],
       graduacao: json['graduacao'],
       bonus: json['bonus'],
-      custo: json['custo']
+      
     );
 
   }
@@ -304,16 +297,16 @@ Ficha adicionarHabilidade({required Map<String,int> novashabilidades
 
   }
 
-Ficha adicionarPericia({ required String nome,required int graduacao,required int custo
+Ficha adicionarPericia({ required String nome,required int graduacao
   }){
-    pericias.add(Pericia(nome:nome,graduacao:graduacao,custo:custo));
+    pericias.add(Pericia(nome:nome,graduacao:graduacao));
     return this;
 
   }
 
-Ficha adicionarVantagem({required String nome, required int graduacao, required int custo
+Ficha adicionarVantagem({required String nome, required int graduacao
 }){
-  vantagens.add(Vantagem(nome: nome, graduacao: graduacao, custo: custo));
+  vantagens.add(Vantagem(nome: nome, graduacao: graduacao));
   return this;
 }
 
