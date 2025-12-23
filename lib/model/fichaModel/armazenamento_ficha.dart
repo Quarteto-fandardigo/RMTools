@@ -54,12 +54,18 @@ class FichaRepository {
   }
 
 
-  Future<T?> carregarCampo<T>(String campo) async {
+  Future <List<String>?> carregarCampo<String>(String campo) async {
   final file = await _file();
   if (!await file.exists()) return null;
-
+  
   final jsonMap = jsonDecode(await file.readAsString());
-  return jsonMap[campo] as T?;
+  final valor = jsonMap[campo];
+
+  if (valor is List) {
+    return valor.cast<String>();
+  }
+
+  return null;
 }
 
 
