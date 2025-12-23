@@ -181,11 +181,16 @@ class _TelaFichaState extends State<TelaListaFicha> {
                                                 final repo = FichaRepository();
                                                 await repo.excluir(fichas[selecionado!]);
 
+                                                if(!mounted){
+                                                  return;
+                                                }
+
                                                 setState(() {
                                                   fichas.removeAt(selecionado!); 
                                                   selecionado = null;
                                                 });
 
+                                                // ignore: use_build_context_synchronously <-- isso vai ignorar o context sublinhado, eu já garanti que a tela esteja montada com o mounted mas vai dar certo
                                                 Navigator.of(context).pop();
                                               },
                                               child: const Text(
