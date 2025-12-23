@@ -76,7 +76,7 @@ class FichaRepository {
     final arquivos = dir.listSync().whereType<File>().where((f) => f.path.endsWith('.json'));
 
     List<String> nomes = [];
-    
+
     for (var f in arquivos) {
       final jsonString = await f.readAsString();
       final jsonMap = jsonDecode(jsonString);
@@ -89,5 +89,12 @@ class FichaRepository {
     }
 
     return nomes;
+  }
+  Future<void> excluir(String nomePersonagem) async{
+    final arquivoFicha = await _file(nomePersonagem);
+
+    if(await arquivoFicha.exists()){
+      await arquivoFicha.delete();
+    }
   }
 }

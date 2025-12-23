@@ -177,7 +177,10 @@ class _TelaFichaState extends State<TelaListaFicha> {
 
                                             //***Excluir***
                                             TextButton(
-                                              onPressed: () {
+                                              onPressed: () async {
+                                                //Isso aqui deleta o arquivo Json que contem o personagem(ficha)
+                                                await FichaRepository().excluir(fichas[selecionado!]);
+
                                                 setState(() {
                                                   fichas.removeAt(selecionado!);
                                                   selecionado = null;
