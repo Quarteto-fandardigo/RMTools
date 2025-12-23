@@ -16,11 +16,14 @@ class _TelaFichaState extends State<TelaListaFicha> {
   List<String> fichas = [];
   
   Future<void> carregarFichas() async {
-    final retorno = await FichaRepository().carregarCampo("nomePersonagem");
+    final retorno =
+        await FichaRepository().carregarCampo("nomePersonagem");
 
-    setState(() {
-      fichas = retorno ?? [];
-    });
+    if (retorno != null) {
+      setState(() {
+        fichas = [retorno];
+      });
+    }
   }
 
   @override
@@ -50,9 +53,11 @@ class _TelaFichaState extends State<TelaListaFicha> {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              const SizedBox(height: 20),
 
               
+              //Espaçamento
+              const SizedBox(height: 20),
+
               
               //***Lista scrollável***
               Container(
@@ -63,6 +68,7 @@ class _TelaFichaState extends State<TelaListaFicha> {
                     borderRadius: BorderRadius.circular                                                             (15),
                   ),
                   child: ListView.builder(
+                    padding: EdgeInsets.zero,
                     itemCount: fichas.length,
                     itemBuilder: (context, index) {
                       return ListTile(

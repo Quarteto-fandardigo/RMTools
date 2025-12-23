@@ -99,7 +99,7 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
 
                   
                   //***Espaçamento***
-                  const SizedBox(height: 280),
+                  const SizedBox(height: 295),
 
 
                   //***Botao Cria ficha***
@@ -155,7 +155,7 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
 
 
                   //***Espaçamento***
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 20),
 
 
                   //***Botao Voltar***
