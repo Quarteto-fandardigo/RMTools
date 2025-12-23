@@ -3,6 +3,8 @@
 // import 'dart:io';
 // import 'package:path_provider/path_provider.dart';
 
+
+
 class Modificador {
   final String nome;
   final int valor;
@@ -225,7 +227,8 @@ class Ficha{
   final double np;
   final String nomeJogador;
   final String nomePersonagem;
-  
+  final double pontosBase ;
+  double pontosD;
   Map<String, int> habilidades = {
     'forca': 0,
     'agilidade': 0,
@@ -240,7 +243,7 @@ class Ficha{
   List<Pericia> pericias = [];
   List<Poder> poderes = [];
   
-
+  //CONSRUTOR DA FICHA NORMAL
    Ficha._(
     this.np,
     this.nomeJogador,
@@ -248,8 +251,9 @@ class Ficha{
     this.habilidades,
     this.vantagens,
     this.pericias,
-    this.poderes,
-  );
+    this.poderes, 
+  ) : pontosBase = np*15,
+      pontosD=np*15;
 
   //factory usado para criar objetos, um construtor que decide como e se um objeto será criado, cabe logica dentro deste.
   factory Ficha.criar({
@@ -325,11 +329,25 @@ Map<String, dynamic> toJson() {
     'vantagens': vantagens.map((v) => v.toJson()).toList(),
     'pericias': pericias.map((p) => p.toJson()).toList(),
     'poderes': poderes.map((p) => p.toJson()).toList(),
+    'pontosBase': pontosBase,
+    'pontosD': pontosD,
   };
 }
 
+//CONSTRUTOR PARA O JSON
+Ficha._fromJson(
+  this.np,
+  this.nomeJogador,
+  this.nomePersonagem,
+  this.habilidades,
+  this.vantagens,
+  this.pericias,
+  this.poderes,
+  this.pontosD,
+) : pontosBase = np * 15;
+
 factory Ficha.fromJson(Map<String, dynamic> json) {
-  return Ficha._(
+  return Ficha._fromJson(
     (json['np'] as num).toDouble(),
     json['nomeJogador'],
     json['nomePersonagem'],
@@ -343,6 +361,7 @@ factory Ficha.fromJson(Map<String, dynamic> json) {
     (json['poderes'] as List<dynamic>)
         .map((p) => Poder.fromJson(p))
         .toList(),
+    (json['pontosD'] as num).toDouble()  
   );
 }
 
