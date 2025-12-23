@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rmtools/pages/tela_fichabasica.dart';
+import 'package:rmtools/pages/tela_personagem_editar.dart';
 import 'package:rmtools/pages/tela_principal.dart';
 import 'package:rmtools/model/fichaModel/armazenamento_ficha.dart';
 
@@ -15,6 +16,7 @@ class TelaListaFicha extends StatefulWidget {
 class _TelaFichaState extends State<TelaListaFicha> {
   List<String> fichas = [];
   int? selecionado;
+  String? nomeSelecionado;
   
   Future<void> carregarFichas() async {
     final retorno = await FichaRepository().listarFichas();
@@ -58,7 +60,6 @@ class _TelaFichaState extends State<TelaListaFicha> {
 
               
               //***Lista scrollável***
-
               GestureDetector(
                 behavior: HitTestBehavior.translucent,
                 onTap: () {
@@ -66,6 +67,7 @@ class _TelaFichaState extends State<TelaListaFicha> {
                     selecionado = null;
                   });
                 },
+
                 child: Container(
                   width: 300,
                   height: 520,
@@ -94,7 +96,7 @@ class _TelaFichaState extends State<TelaListaFicha> {
                                 });
                               },
 
-                              // label de seleção
+                              //label de seleção
                               child: Container(
                                 margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
                                 padding: const EdgeInsets.all(8),
@@ -218,7 +220,14 @@ class _TelaFichaState extends State<TelaListaFicha> {
                                   )
                                 ),
                                 onPressed: () {
-                                  //fazer a transição de telas
+                                  if(selecionado != null){
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => TelaPersonagemEditar(nomePersonagem: fichas[selecionado!])
+                                      )
+                                    );
+                                  }
                                 },
                               child: const Text("Editar"),
                             ),
