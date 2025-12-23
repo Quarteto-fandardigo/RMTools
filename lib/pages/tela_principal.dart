@@ -35,9 +35,9 @@ class TelaPrincipal extends StatelessWidget{
               const SizedBox(height: 40),
 
 
-              //***BOTÃO*** CONSTRUIR_FICHA
+              //***BOTÃO***
               ElevatedButton(
-                  
+              
                 //tamanho botão
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(300, 100)
