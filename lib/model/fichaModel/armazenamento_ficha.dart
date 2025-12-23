@@ -52,7 +52,20 @@ class FichaRepository {
 
     return Ficha.fromJson(jsonMap);
   }
+
+
+  Future<T?> carregarCampo<T>(String campo) async {
+  final file = await _file();
+  if (!await file.exists()) return null;
+
+  final jsonMap = jsonDecode(await file.readAsString());
+  return jsonMap[campo] as T?;
 }
+
+
+
+}
+
 
 
 
