@@ -182,20 +182,26 @@ class Vantagem {
 
 
 
+  bool alterarVantagem(){
+
+
+    return true;
+  }
+
 
 }
 
 class Pericia {
 
   final String nome;
-  final int bonus;
+  int? bonus;
   final int graduacao;
   final int custo;
 
   Pericia({
     required this.nome,
     required this.graduacao,
-    required this.bonus,
+    this.bonus,
     required this.custo,
   });
 
@@ -298,9 +304,9 @@ Ficha adicionarHabilidade({required Map<String,int> novashabilidades
 
   }
 
-Ficha adicionarPericia({ required String nome, required int bonus,required int graduacao,required int custo
+Ficha adicionarPericia({ required String nome,required int graduacao,required int custo
   }){
-    pericias.add(Pericia(nome:nome,bonus:bonus,graduacao:graduacao,custo:custo));
+    pericias.add(Pericia(nome:nome,graduacao:graduacao,custo:custo));
     return this;
 
   }
