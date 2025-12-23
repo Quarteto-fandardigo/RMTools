@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rmtools/model/fichaModel/ficha.dart';
 import 'package:rmtools/pages/tela_listafichas.dart';
+import 'package:rmtools/model/fichaModel/armazenamento_ficha.dart';
 
 class TelaFichabasica extends StatefulWidget {
   const TelaFichabasica({super.key});
@@ -12,6 +13,7 @@ class TelaFichabasica extends StatefulWidget {
 class _TelaFichabasicaState extends State<TelaFichabasica> {
   final nomeJogador = TextEditingController();
   final nomePersonagem = TextEditingController();
+  late Ficha fichaPersonagem; //<------ se der erro ver dps
   double valorNP = 1;
   bool erro = false;
   bool sucesso = false;
@@ -120,12 +122,16 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
                         erro = false;
                         sucesso = false;
 
-                        Ficha.criar(
+                        //Instancia a ficha
+                        fichaPersonagem = Ficha.criar(
                           np: valorNP,
                           nomeJogador: nomeJogador.text,
                           nomePersonagem: nomePersonagem.text,
                         );
-
+                        
+                        //Salva a ficha
+                        FichaRepository().salvar(fichaPersonagem);
+                        
                         sucesso = true;
                       });
 

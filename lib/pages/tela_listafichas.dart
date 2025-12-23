@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rmtools/pages/tela_fichabasica.dart';
 import 'package:rmtools/pages/tela_principal.dart';
+import 'package:rmtools/model/fichaModel/armazenamento_ficha.dart';
 
 
 class TelaListaFicha extends StatefulWidget { 
@@ -13,6 +14,20 @@ class TelaListaFicha extends StatefulWidget {
 
 class _TelaFichaState extends State<TelaListaFicha> {
   List<String> fichas = [];
+  
+  Future<void> carregarFichas() async {
+    final retorno = await FichaRepository().carregarCampo("nomePersonagem");
+
+    setState(() {
+      fichas = retorno ?? [];
+    });
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    carregarFichas();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,10 +79,8 @@ class _TelaFichaState extends State<TelaListaFicha> {
                 ),
 
 
-              
               //***Espaçamento***
               const SizedBox(height: 20),
-
 
 
               //***Botão Adicionar ficha***
@@ -90,10 +103,8 @@ class _TelaFichaState extends State<TelaListaFicha> {
               ),
               
 
-
               //***Espaçamento***
               const SizedBox(height: 20),
-
 
 
               //***Botão Voltar***
