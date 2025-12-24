@@ -154,12 +154,10 @@ class Poder{
 class Vantagem {
   final String nome;
   final int graduacao;
-  
 
   Vantagem({
     required this.nome,
     required this.graduacao,
-    
   });
 
 
@@ -177,10 +175,6 @@ class Vantagem {
       graduacao: json['graduacao'],
     );
   }
-
-
-
-
 
 }
 
@@ -285,17 +279,27 @@ class Ficha{
 Ficha criarFicha({ required double np ,required String nomeJogador ,required String nomePersonagem})  
   {return Ficha.criar(np: np, nomeJogador: nomeJogador, nomePersonagem: nomePersonagem);}
 
-Ficha adicionarHabilidade({required Map<String,int> novashabilidades
-  }){
-      novashabilidades.forEach((chave, valor) {
-      if (habilidades.containsKey(chave)) {
-        habilidades[chave] = valor;
+bool adicionarHabilidade(String nome, int valor
+  ){
+      int habilidade= habilidades[nome]!;
+      bool validar=false;
+      
+      if(valor>0 && pontosD>=2 && habilidade<20 ){
+        pontosD -= 2;
+        habilidade += valor;
+        validar=true;
       }
-    });
-
-    return this;
-
-  }
+      else if (valor<0 && habilidade>-5){
+        pontosD += 2;
+        habilidade +=valor;
+        validar=true;
+      }
+      
+      //caso nao mude nada, so fica igual
+      habilidades[nome]=habilidade;
+      return validar;
+      
+  } 
 
 Ficha adicionarPericia({ required String nome,required int graduacao
   }){

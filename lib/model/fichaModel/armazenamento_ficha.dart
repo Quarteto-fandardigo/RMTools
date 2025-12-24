@@ -61,11 +61,11 @@ class FichaRepository {
     final jsonMap = jsonDecode(await file.readAsString());
     final valor = jsonMap[campo];
 
-    if (valor is String) {
-      return valor;
-    }
+    
+    return valor;
+    
 
-    return null;
+   
   }
 
   Future<List<String>> listarFichas() async {
