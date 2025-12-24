@@ -217,11 +217,11 @@ class Pericia {
 
 class Ficha{
 
-  final double np;
+  final int np;
   final String nomeJogador;
   final String nomePersonagem;
-  final double pontosBase ;
-  double pontosD;
+  final int pontosBase ;
+  int pontosD;
   Map<String, int> habilidades = {
     'forca': 0,
     'agilidade': 0,
@@ -250,7 +250,7 @@ class Ficha{
 
   //factory usado para criar objetos, um construtor que decide como e se um objeto será criado, cabe logica dentro deste.
   factory Ficha.criar({
-    required double np,
+    required int np,
     required String nomeJogador,
     required String nomePersonagem
   }){
@@ -276,7 +276,7 @@ class Ficha{
 
 
 // funcao para criar ficha
-Ficha criarFicha({ required double np ,required String nomeJogador ,required String nomePersonagem})  
+Ficha criarFicha({ required int np ,required String nomeJogador ,required String nomePersonagem})  
   {return Ficha.criar(np: np, nomeJogador: nomeJogador, nomePersonagem: nomePersonagem);}
 
 bool adicionarHabilidade(String nome, int valor
@@ -351,9 +351,9 @@ Ficha._fromJson(
 
 factory Ficha.fromJson(Map<String, dynamic> json) {
   return Ficha._fromJson(
-    (json['np'] as num).toDouble(),
-    json['nomeJogador'],
-    json['nomePersonagem'],
+    (json['np'] as num).toInt(),
+    json['nomeJogador'] as String,
+    json['nomePersonagem'] as String,
     Map<String, int>.from(json['habilidades']),
     (json['vantagens'] as List<dynamic>)
         .map((v) => Vantagem.fromJson(v))
@@ -364,13 +364,15 @@ factory Ficha.fromJson(Map<String, dynamic> json) {
     (json['poderes'] as List<dynamic>)
         .map((p) => Poder.fromJson(p))
         .toList(),
-    (json['pontosD'] as num).toDouble()  
-  );
-}
-
-
-
+    (json['pontosD'] as num).toInt(),
+    );
+  }
 
 }
+
+
+
+
+
 
 
