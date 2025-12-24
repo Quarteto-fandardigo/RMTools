@@ -26,7 +26,7 @@
 
 import 'dart:convert';
 import 'dart:io';
-import 'dart:nativewrappers/_internal/vm/lib/ffi_native_type_patch.dart';
+//import 'dart:nativewrappers/_internal/vm/lib/ffi_native_type_patch.dart';
 // import 'package:path_provider/path_provider.dart';
 import 'package:rmtools/model/fichaModel/ficha.dart';
 
@@ -77,10 +77,7 @@ class FichaRepository {
     final jsonMap = jsonDecode(await file.readAsString());
     final valor = jsonMap[campo];
 
-    
     return valor;
-    
-
     
   }
 
