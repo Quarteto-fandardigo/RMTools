@@ -56,11 +56,65 @@ class _TelaHabilidades extends State<TelaHabilidades>{
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+
+                //***Botao de duvida***
                 IconButton(
                   icon: Icon(Icons.help),
                   iconSize: 35,
                   color: Colors.white,
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        backgroundColor: const Color.fromARGB(255, 21, 22, 34),
+                        title: Text("Ajuda", style: TextStyle(color: Colors.white)),
+                        content: SizedBox(
+                          height: 350,
+                          width: 300,
+                          child: SingleChildScrollView(
+                            child: Text(
+                              "Habilidades são como o sistema chama os atributos, ex: força. "
+                              "Cada graduação em uma habilidade custa 2 pontos de poder, retirar concede 2 pontos. "
+                              "Segue a escala (material oficial):\n\n"
+                              "-5 — Completamente inepto\n"
+                              "-4 — Criança muito nova (<6 anos)\n"
+                              "-3 — Criança nova (7-9)\n"
+                              "-2 — Criança (10-13), idoso ou debilitado\n"
+                              "-1 — Abaixo da média; adolescente\n"
+                              "0 — Adulto médio\n"
+                              "1 — Acima da média\n"
+                              "2 — Bem acima da média\n"
+                              "3 — Talentoso\n"
+                              "4 — Altamente talentoso\n"
+                              "5 — O melhor de um país\n"
+                              "6 — Um dos melhores do mundo\n"
+                              "7 — Ápice humano\n"
+                              "8 — Super-humano fraco\n"
+                              "10 — Super-humano moderado\n"
+                              "13 — Super-humano poderoso\n"
+                              "15 — Super-humano muito poderoso\n"
+                              "20 — Cósmico",
+                              style: TextStyle(fontSize: 16, color: Colors.white),
+                            ),
+                          ),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();//<-- fecha o pop-up
+                            },
+                            child: Text(
+                              "Fechar",
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 22,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),                   
+                    );
+                  },
                 ),
                 
 
@@ -854,8 +908,6 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                     style: TextStyle(fontSize: 25),
                   ),
                 ),
-
-
               ],
             ),
           ),

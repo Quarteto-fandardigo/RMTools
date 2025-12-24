@@ -168,7 +168,6 @@ class _TelaFichaState extends State<TelaListaFicha> {
                                               onPressed: () {
                                                 Navigator.of(context).pop();//<-- fecha o pop-up
                                               },
-
                                               child: Text(
                                                 "Cancelar",
                                                 style: TextStyle(
