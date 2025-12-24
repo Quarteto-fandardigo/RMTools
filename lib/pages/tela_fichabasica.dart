@@ -92,7 +92,7 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
                     label: valorNP.toString(),
                     onChanged: (double novoValor) {
                       setState(() {
-                        valorNP = novoValor.round();
+                        valorNP = novoValor.toInt();
                       });
                     },
                   ),
