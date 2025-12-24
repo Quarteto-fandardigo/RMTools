@@ -70,7 +70,7 @@ class FichaRepository {
   }
 
 
-  Future<double?> carregarCampoDouble(String campo,String nomePersonagem) async {
+  Future<int?> carregarCampoInt(String campo,String nomePersonagem) async {
     final file = await _file(nomePersonagem);
     if (!await file.exists()) return null;
 
