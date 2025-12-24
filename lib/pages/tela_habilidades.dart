@@ -86,30 +86,60 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                       Row(
                         children: [
 
-                          //Adicionar
+                          //Remover
                           IconButton(
                             icon: Icon(Icons.remove, color: Colors.white),
-                            onPressed: () {},
+                            onPressed: () async {
+                              final repo = FichaRepository();
+                              final ficha = await repo.carregar(widget.nomePersonagem);
+                              if (ficha != null) {
+                                final mudou = ficha.adicionarHabilidade('forca', -1);
+                                if (mudou) {
+                                  await repo.salvar(ficha);
+                                  setState(() {});
+                                }
+                              }
+                            },
                             iconSize: 30,
                             style: IconButton.styleFrom(
                               side: const BorderSide(color: Colors.white24, width: 1),//Borda
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                             ),
                           ),
+
+
+                          // Espaço entre o botão e o texto
+                          const SizedBox(width: 15),
+
                           
                           //Texto
                           Text(
-                            "10",
+                            "0",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 40,
                             ),
                           ),
 
-                          //Remover
+
+                          // Espaço entre o botão e o texto
+                          const SizedBox(width: 15),
+
+
+                          //Adicionar
                           IconButton(
                             icon: Icon(Icons.add, color: Colors.white),
-                            onPressed: () {},
+                            onPressed: () async {
+                              final repo = FichaRepository();
+                              final ficha = await repo.carregar(widget.nomePersonagem);
+                              if (ficha != null) {
+                                final mudou = ficha.adicionarHabilidade('forca', 1);
+                                if (mudou) {
+                                  await repo.salvar(ficha);
+                                  setState(() {});
+                                }
+                              }
+                            },
                             iconSize: 30,
                             style: IconButton.styleFrom(
                               side: const BorderSide(color: Colors.white24, width: 1),//Borda
@@ -144,10 +174,20 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                       Row(
                         children: [
 
-                          //Adicionar
+                          //Remover
                           IconButton(
                             icon: Icon(Icons.remove, color: Colors.white),
-                            onPressed: () {},
+                            onPressed: () async {
+                              final repo = FichaRepository();
+                              final ficha = await repo.carregar(widget.nomePersonagem);
+                              if (ficha != null) {
+                                final mudou = ficha.adicionarHabilidade('forca', -1);
+                                if (mudou) {
+                                  await repo.salvar(ficha);
+                                  setState(() {});
+                                }
+                              }
+                            },
                             iconSize: 30,
                             style: IconButton.styleFrom(
                               side: const BorderSide(color: Colors.white24, width: 1),//Borda
@@ -155,19 +195,39 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                             ),
                           ),
                           
+
+                          // Espaço entre o botão e o texto
+                          const SizedBox(width: 15),
+
+
                           //Texto
                           Text(
-                            "10",
+                            "0",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 40,
                             ),
                           ),
 
-                          //Remover
+
+                          // Espaço entre o botão e o texto
+                          const SizedBox(width: 15),
+
+
+                          //Adicionar
                           IconButton(
                             icon: Icon(Icons.add, color: Colors.white),
-                            onPressed: () {},
+                            onPressed: () async {
+                              final repo = FichaRepository();
+                              final ficha = await repo.carregar(widget.nomePersonagem);
+                              if (ficha != null) {
+                                final mudou = ficha.adicionarHabilidade('forca', 1);
+                                if (mudou) {
+                                  await repo.salvar(ficha);
+                                  setState(() {});
+                                }
+                              }
+                            },
                             iconSize: 30,
                             style: IconButton.styleFrom(
                               side: const BorderSide(color: Colors.white24, width: 1),//Borda
@@ -202,10 +262,20 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                       Row(
                         children: [
 
-                          //Adicionar
+                          //Remover
                           IconButton(
                             icon: Icon(Icons.remove, color: Colors.white),
-                            onPressed: () {},
+                            onPressed: () async {
+                              final repo = FichaRepository();
+                              final ficha = await repo.carregar(widget.nomePersonagem);
+                              if (ficha != null) {
+                                final mudou = ficha.adicionarHabilidade('forca', -1);
+                                if (mudou) {
+                                  await repo.salvar(ficha);
+                                  setState(() {});
+                                }
+                              }
+                            },
                             iconSize: 30,
                             style: IconButton.styleFrom(
                               side: const BorderSide(color: Colors.white24, width: 1),//Borda
@@ -213,19 +283,39 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                             ),
                           ),
                           
+
+                          // Espaço entre o botão e o texto
+                          const SizedBox(width: 15),
+
+
                           //Texto
                           Text(
-                            "10",
+                            "0",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 40,
                             ),
                           ),
 
-                          //Remover
+
+                          // Espaço entre o botão e o texto
+                          const SizedBox(width: 15),
+
+
+                          //Adicionar
                           IconButton(
                             icon: Icon(Icons.add, color: Colors.white),
-                            onPressed: () {},
+                            onPressed: () async {
+                              final repo = FichaRepository();
+                              final ficha = await repo.carregar(widget.nomePersonagem);
+                              if (ficha != null) {
+                                final mudou = ficha.adicionarHabilidade('forca', 1);
+                                if (mudou) {
+                                  await repo.salvar(ficha);
+                                  setState(() {});
+                                }
+                              }
+                            },
                             iconSize: 30,
                             style: IconButton.styleFrom(
                               side: const BorderSide(color: Colors.white24, width: 1),//Borda
@@ -260,10 +350,20 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                       Row(
                         children: [
 
-                          //Adicionar
+                          //Remover
                           IconButton(
                             icon: Icon(Icons.remove, color: Colors.white),
-                            onPressed: () {},
+                            onPressed: () async {
+                              final repo = FichaRepository();
+                              final ficha = await repo.carregar(widget.nomePersonagem);
+                              if (ficha != null) {
+                                final mudou = ficha.adicionarHabilidade('forca', -1);
+                                if (mudou) {
+                                  await repo.salvar(ficha);
+                                  setState(() {});
+                                }
+                              }
+                            },
                             iconSize: 30,
                             style: IconButton.styleFrom(
                               side: const BorderSide(color: Colors.white24, width: 1),//Borda
@@ -271,19 +371,39 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                             ),
                           ),
                           
+
+                          // Espaço entre o botão e o texto
+                          const SizedBox(width: 15),
+
+
                           //Texto
                           Text(
-                            "10",
+                            "0",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 40,
                             ),
                           ),
 
-                          //Remover
+
+                          // Espaço entre o botão e o texto
+                          const SizedBox(width: 15),
+
+
+                          //Adicionar
                           IconButton(
                             icon: Icon(Icons.add, color: Colors.white),
-                            onPressed: () {},
+                            onPressed: () async {
+                              final repo = FichaRepository();
+                              final ficha = await repo.carregar(widget.nomePersonagem);
+                              if (ficha != null) {
+                                final mudou = ficha.adicionarHabilidade('forca', 1);
+                                if (mudou) {
+                                  await repo.salvar(ficha);
+                                  setState(() {});
+                                }
+                              }
+                            },
                             iconSize: 30,
                             style: IconButton.styleFrom(
                               side: const BorderSide(color: Colors.white24, width: 1),//Borda
@@ -318,30 +438,60 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                       Row(
                         children: [
 
-                          //Adicionar
+                          //Remover
                           IconButton(
                             icon: Icon(Icons.remove, color: Colors.white),
-                            onPressed: () {},
+                            onPressed: () async {
+                              final repo = FichaRepository();
+                              final ficha = await repo.carregar(widget.nomePersonagem);
+                              if (ficha != null) {
+                                final mudou = ficha.adicionarHabilidade('forca', -1);
+                                if (mudou) {
+                                  await repo.salvar(ficha);
+                                  setState(() {});
+                                }
+                              }
+                            },
                             iconSize: 30,
                             style: IconButton.styleFrom(
                               side: const BorderSide(color: Colors.white24, width: 1),//Borda
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                             ),
                           ),
+
+
+                          // Espaço entre o botão e o texto
+                          const SizedBox(width: 15),
+
                           
                           //Texto
                           Text(
-                            "10",
+                            "0",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 40,
                             ),
                           ),
 
-                          //Remover
+
+                          // Espaço entre o botão e o texto
+                          const SizedBox(width: 15),
+
+
+                          //Adicionar
                           IconButton(
                             icon: Icon(Icons.add, color: Colors.white),
-                            onPressed: () {},
+                            onPressed: () async {
+                              final repo = FichaRepository();
+                              final ficha = await repo.carregar(widget.nomePersonagem);
+                              if (ficha != null) {
+                                final mudou = ficha.adicionarHabilidade('forca', 1);
+                                if (mudou) {
+                                  await repo.salvar(ficha);
+                                  setState(() {});
+                                }
+                              }
+                            },
                             iconSize: 30,
                             style: IconButton.styleFrom(
                               side: const BorderSide(color: Colors.white24, width: 1),//Borda
@@ -376,10 +526,20 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                       Row(
                         children: [
 
-                          //Adicionar
+                          //Remover
                           IconButton(
                             icon: Icon(Icons.remove, color: Colors.white),
-                            onPressed: () {},
+                            onPressed: () async {
+                              final repo = FichaRepository();
+                              final ficha = await repo.carregar(widget.nomePersonagem);
+                              if (ficha != null) {
+                                final mudou = ficha.adicionarHabilidade('forca', -1);
+                                if (mudou) {
+                                  await repo.salvar(ficha);
+                                  setState(() {});
+                                }
+                              }
+                            },
                             iconSize: 30,
                             style: IconButton.styleFrom(
                               side: const BorderSide(color: Colors.white24, width: 1),//Borda
@@ -387,19 +547,39 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                             ),
                           ),
                           
+
+                          // Espaço entre o botão e o texto
+                          const SizedBox(width: 15),
+
+
                           //Texto
                           Text(
-                            "10",
+                            "0",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 40,
                             ),
                           ),
 
-                          //Remover
+
+                          // Espaço entre o botão e o texto
+                          const SizedBox(width: 15),
+
+
+                          //Adicionar
                           IconButton(
                             icon: Icon(Icons.add, color: Colors.white),
-                            onPressed: () {},
+                            onPressed: () async {
+                              final repo = FichaRepository();
+                              final ficha = await repo.carregar(widget.nomePersonagem);
+                              if (ficha != null) {
+                                final mudou = ficha.adicionarHabilidade('forca', 1);
+                                if (mudou) {
+                                  await repo.salvar(ficha);
+                                  setState(() {});
+                                }
+                              }
+                            },
                             iconSize: 30,
                             style: IconButton.styleFrom(
                               side: const BorderSide(color: Colors.white24, width: 1),//Borda
@@ -434,10 +614,20 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                       Row(
                         children: [
 
-                          //Adicionar
+                          //Remover
                           IconButton(
                             icon: Icon(Icons.remove, color: Colors.white),
-                            onPressed: () {},
+                            onPressed: () async {
+                              final repo = FichaRepository();
+                              final ficha = await repo.carregar(widget.nomePersonagem);
+                              if (ficha != null) {
+                                final mudou = ficha.adicionarHabilidade('forca', -1);
+                                if (mudou) {
+                                  await repo.salvar(ficha);
+                                  setState(() {});
+                                }
+                              }
+                            },
                             iconSize: 30,
                             style: IconButton.styleFrom(
                               side: const BorderSide(color: Colors.white24, width: 1),//Borda
@@ -445,19 +635,39 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                             ),
                           ),
                           
+
+                          // Espaço entre o botão e o texto
+                          const SizedBox(width: 15),
+
+
                           //Texto
                           Text(
-                            "10",
+                            "0",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 40,
                             ),
                           ),
 
-                          //Remover
+
+                          // Espaço entre o botão e o texto
+                          const SizedBox(width: 15),
+
+
+                          //Adicionar
                           IconButton(
                             icon: Icon(Icons.add, color: Colors.white),
-                            onPressed: () {},
+                            onPressed: () async {
+                              final repo = FichaRepository();
+                              final ficha = await repo.carregar(widget.nomePersonagem);
+                              if (ficha != null) {
+                                final mudou = ficha.adicionarHabilidade('forca', 1);
+                                if (mudou) {
+                                  await repo.salvar(ficha);
+                                  setState(() {});
+                                }
+                              }
+                            },
                             iconSize: 30,
                             style: IconButton.styleFrom(
                               side: const BorderSide(color: Colors.white24, width: 1),//Borda
@@ -492,30 +702,60 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                       Row(
                         children: [
 
-                          //Adicionar
+                          //Remover
                           IconButton(
                             icon: Icon(Icons.remove, color: Colors.white),
-                            onPressed: () {},
+                            onPressed: () async {
+                              final repo = FichaRepository();
+                              final ficha = await repo.carregar(widget.nomePersonagem);
+                              if (ficha != null) {
+                                final mudou = ficha.adicionarHabilidade('forca', -1);
+                                if (mudou) {
+                                  await repo.salvar(ficha);
+                                  setState(() {});
+                                }
+                              }
+                            },
                             iconSize: 30,
                             style: IconButton.styleFrom(
                               side: const BorderSide(color: Colors.white24, width: 1),//Borda
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                             ),
                           ),
+
+
+                          // Espaço entre o botão e o texto
+                          const SizedBox(width: 15),
+
                           
                           //Texto
                           Text(
-                            "10",
+                            "0",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 40,
                             ),
                           ),
 
-                          //Remover
+
+                          // Espaço entre o botão e o texto
+                          const SizedBox(width: 15),
+
+
+                          //Adicionar
                           IconButton(
                             icon: Icon(Icons.add, color: Colors.white),
-                            onPressed: () {},
+                            onPressed: () async {
+                              final repo = FichaRepository();
+                              final ficha = await repo.carregar(widget.nomePersonagem);
+                              if (ficha != null) {
+                                final mudou = ficha.adicionarHabilidade('forca', 1);
+                                if (mudou) {
+                                  await repo.salvar(ficha);
+                                  setState(() {});
+                                }
+                              }
+                            },
                             iconSize: 30,
                             style: IconButton.styleFrom(
                               side: const BorderSide(color: Colors.white24, width: 1),//Borda
