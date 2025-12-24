@@ -274,7 +274,7 @@ class _TelaFichaState extends State<TelaListaFicha> {
                   minimumSize: const Size(100, 50),
                 ),
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pop(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const TelaPrincipal(),

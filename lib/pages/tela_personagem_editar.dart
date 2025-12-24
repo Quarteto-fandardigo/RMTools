@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rmtools/pages/tela_habilidades.dart';
 import 'package:rmtools/pages/tela_listafichas.dart';
 
 
@@ -20,7 +21,7 @@ class _TelaPersonagemEditarState extends State<TelaPersonagemEditar> {
       backgroundColor: const Color.fromARGB(255, 21, 22, 34),
       body: Column(
         children: [
-          //***Titulo*** - Fora do scroll para ficar fixo
+          //***Titulo*** fora do scroll pra ficar fixo
           Padding(
             padding: const EdgeInsets.only(top:20),
             child: Text(
@@ -43,7 +44,7 @@ class _TelaPersonagemEditarState extends State<TelaPersonagemEditar> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
 
-                      
+
                       //***BOTÃO info basica***
                       ElevatedButton(
                           
@@ -69,7 +70,7 @@ class _TelaPersonagemEditarState extends State<TelaPersonagemEditar> {
                       const SizedBox(height: 40),
 
 
-                      //***BOTÃO info basica***
+                      //***BOTÃO Habilidades***
                       ElevatedButton(
                         
                       //tamanho botão
@@ -78,7 +79,14 @@ class _TelaPersonagemEditarState extends State<TelaPersonagemEditar> {
                       ),
 
                       //função botão
-                      onPressed: () {},
+                      onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TelaHabilidades(nomePersonagem: widget.nomePersonagem),
+                          ),
+                        );
+                      },
                         
                       //texto botão
                       child: const Text(
@@ -94,7 +102,7 @@ class _TelaPersonagemEditarState extends State<TelaPersonagemEditar> {
                       const SizedBox(height: 40),
 
 
-                      //***BOTÃO info basica***
+                      //***BOTÃO Perícias***
                       ElevatedButton(
                         
                       //tamanho botão
@@ -119,7 +127,7 @@ class _TelaPersonagemEditarState extends State<TelaPersonagemEditar> {
                       const SizedBox(height: 40),
 
 
-                      //***BOTÃO info basica***
+                      //***BOTÃO Vantagens***
                       ElevatedButton(
                         
                       //tamanho botão
@@ -144,7 +152,7 @@ class _TelaPersonagemEditarState extends State<TelaPersonagemEditar> {
                       const SizedBox(height: 40),
 
 
-                      //***BOTÃO info basica***
+                      //***BOTÃO Poderes***
                       ElevatedButton(
                         
                       //tamanho botão
@@ -175,7 +183,7 @@ class _TelaPersonagemEditarState extends State<TelaPersonagemEditar> {
                           minimumSize: const Size(100, 50),
                         ),
                         onPressed: () {
-                          Navigator.push(
+                          Navigator.pop(
                             context,
                             MaterialPageRoute(
                               builder: (context) => const TelaListaFicha(),

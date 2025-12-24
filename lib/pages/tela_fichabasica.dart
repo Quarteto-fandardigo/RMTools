@@ -14,7 +14,7 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
   final nomeJogador = TextEditingController();
   final nomePersonagem = TextEditingController();
   late Ficha fichaPersonagem; //<------ se der erro ver dps
-  double valorNP = 1;
+  int valorNP = 1;
   bool erro = false;
   bool sucesso = false;
 
@@ -85,14 +85,14 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
 
                   //***Slider***
                   Slider(
-                    value: valorNP,
+                    value: valorNP.toDouble(),
                     min: 1,
                     max: 50,
-                    divisions: 50,
-                    label: valorNP.round().toString(),
-                    onChanged: (novoValor) {
+                    divisions: 49,
+                    label: valorNP.toString(),
+                    onChanged: (double novoValor) {
                       setState(() {
-                        valorNP = novoValor;
+                        valorNP = novoValor.round();
                       });
                     },
                   ),
@@ -164,7 +164,7 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
                       minimumSize: const Size(100, 50),
                     ),
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pop(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const TelaListaFicha(),
