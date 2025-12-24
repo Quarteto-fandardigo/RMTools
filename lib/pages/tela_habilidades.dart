@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rmtools/model/fichaModel/armazenamento_ficha.dart';
+import 'package:rmtools/pages/tela_personagem_editar.dart';
 
 class TelaHabilidades extends StatefulWidget{
   final String nomePersonagem;
@@ -19,7 +20,7 @@ class _TelaHabilidades extends State<TelaHabilidades>{
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -61,70 +62,497 @@ class _TelaHabilidades extends State<TelaHabilidades>{
             ),
           ),
           Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
+            child: Column(
+              children: [
 
-                  //***Força***
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        
-                        //Texto stepper Força
-                        Text(
-                          "Força:",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 40,
-                          ),
+                //***Força***
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      
+                      //Texto stepper Força
+                      Text(
+                        "Força:",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 40,
                         ),
-                        
+                      ),
+                      
 
-                        //***Stepper***
-                        Row(
-                          children: [
+                      //***Stepper***
+                      Row(
+                        children: [
 
-                            //Adicionar
-                            IconButton(
-                              icon: Icon(Icons.remove, color: Colors.white),
-                              onPressed: () {},
-                              iconSize: 30,
+                          //Adicionar
+                          IconButton(
+                            icon: Icon(Icons.remove, color: Colors.white),
+                            onPressed: () {},
+                            iconSize: 30,
+                            style: IconButton.styleFrom(
+                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                             ),
-                            
-                            //Texto
-                            Text(
-                              "10",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 40,
-                              ),
+                          ),
+                          
+                          //Texto
+                          Text(
+                            "10",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 40,
                             ),
+                          ),
 
-                            //Remover
-                            IconButton(
-                              icon: Icon(Icons.add, color: Colors.white),
-                              onPressed: () {},
-                              iconSize: 30,
-                            )
-                          ],
-                        )
-                      ],
-                    )
+                          //Remover
+                          IconButton(
+                            icon: Icon(Icons.add, color: Colors.white),
+                            onPressed: () {},
+                            iconSize: 30,
+                            style: IconButton.styleFrom(
+                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  )
+                ),
+                
+
+                //***Agilidade***
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      
+                      //Texto stepper Força
+                      Text(
+                        "Agilidade:",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 40,
+                        ),
+                      ),
+                      
+
+                      //***Stepper***
+                      Row(
+                        children: [
+
+                          //Adicionar
+                          IconButton(
+                            icon: Icon(Icons.remove, color: Colors.white),
+                            onPressed: () {},
+                            iconSize: 30,
+                            style: IconButton.styleFrom(
+                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            ),
+                          ),
+                          
+                          //Texto
+                          Text(
+                            "10",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 40,
+                            ),
+                          ),
+
+                          //Remover
+                          IconButton(
+                            icon: Icon(Icons.add, color: Colors.white),
+                            onPressed: () {},
+                            iconSize: 30,
+                            style: IconButton.styleFrom(
+                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  )
+                ),
+
+
+                //***Destreza***
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      
+                      //Texto stepper Força
+                      Text(
+                        "Destreza:",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 40,
+                        ),
+                      ),
+                      
+
+                      //***Stepper***
+                      Row(
+                        children: [
+
+                          //Adicionar
+                          IconButton(
+                            icon: Icon(Icons.remove, color: Colors.white),
+                            onPressed: () {},
+                            iconSize: 30,
+                            style: IconButton.styleFrom(
+                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            ),
+                          ),
+                          
+                          //Texto
+                          Text(
+                            "10",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 40,
+                            ),
+                          ),
+
+                          //Remover
+                          IconButton(
+                            icon: Icon(Icons.add, color: Colors.white),
+                            onPressed: () {},
+                            iconSize: 30,
+                            style: IconButton.styleFrom(
+                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  )
+                ),
+
+
+                //***Luta***
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      
+                      //Texto stepper Força
+                      Text(
+                        "Luta:",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 40,
+                        ),
+                      ),
+                      
+
+                      //***Stepper***
+                      Row(
+                        children: [
+
+                          //Adicionar
+                          IconButton(
+                            icon: Icon(Icons.remove, color: Colors.white),
+                            onPressed: () {},
+                            iconSize: 30,
+                            style: IconButton.styleFrom(
+                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            ),
+                          ),
+                          
+                          //Texto
+                          Text(
+                            "10",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 40,
+                            ),
+                          ),
+
+                          //Remover
+                          IconButton(
+                            icon: Icon(Icons.add, color: Colors.white),
+                            onPressed: () {},
+                            iconSize: 30,
+                            style: IconButton.styleFrom(
+                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  )
+                ),
+
+
+                //***Intelecto***
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      
+                      //Texto stepper Força
+                      Text(
+                        "Intelecto:",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 40,
+                        ),
+                      ),
+                      
+
+                      //***Stepper***
+                      Row(
+                        children: [
+
+                          //Adicionar
+                          IconButton(
+                            icon: Icon(Icons.remove, color: Colors.white),
+                            onPressed: () {},
+                            iconSize: 30,
+                            style: IconButton.styleFrom(
+                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            ),
+                          ),
+                          
+                          //Texto
+                          Text(
+                            "10",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 40,
+                            ),
+                          ),
+
+                          //Remover
+                          IconButton(
+                            icon: Icon(Icons.add, color: Colors.white),
+                            onPressed: () {},
+                            iconSize: 30,
+                            style: IconButton.styleFrom(
+                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  )
+                ),
+
+
+                //***Prontidão***
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      
+                      //Texto stepper Força
+                      Text(
+                        "Prontidão:",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 40,
+                        ),
+                      ),
+                      
+
+                      //***Stepper***
+                      Row(
+                        children: [
+
+                          //Adicionar
+                          IconButton(
+                            icon: Icon(Icons.remove, color: Colors.white),
+                            onPressed: () {},
+                            iconSize: 30,
+                            style: IconButton.styleFrom(
+                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            ),
+                          ),
+                          
+                          //Texto
+                          Text(
+                            "10",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 40,
+                            ),
+                          ),
+
+                          //Remover
+                          IconButton(
+                            icon: Icon(Icons.add, color: Colors.white),
+                            onPressed: () {},
+                            iconSize: 30,
+                            style: IconButton.styleFrom(
+                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  )
+                ),
+
+
+                //***Presença***
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      
+                      //Texto stepper Força
+                      Text(
+                        "Presença:",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 40,
+                        ),
+                      ),
+                      
+
+                      //***Stepper***
+                      Row(
+                        children: [
+
+                          //Adicionar
+                          IconButton(
+                            icon: Icon(Icons.remove, color: Colors.white),
+                            onPressed: () {},
+                            iconSize: 30,
+                            style: IconButton.styleFrom(
+                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            ),
+                          ),
+                          
+                          //Texto
+                          Text(
+                            "10",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 40,
+                            ),
+                          ),
+
+                          //Remover
+                          IconButton(
+                            icon: Icon(Icons.add, color: Colors.white),
+                            onPressed: () {},
+                            iconSize: 30,
+                            style: IconButton.styleFrom(
+                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  )
+                ),
+
+
+                //***Vigor***
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      
+                      //Texto stepper Força
+                      Text(
+                        "Vigor:",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 40,
+                        ),
+                      ),
+                      
+
+                      //***Stepper***
+                      Row(
+                        children: [
+
+                          //Adicionar
+                          IconButton(
+                            icon: Icon(Icons.remove, color: Colors.white),
+                            onPressed: () {},
+                            iconSize: 30,
+                            style: IconButton.styleFrom(
+                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            ),
+                          ),
+                          
+                          //Texto
+                          Text(
+                            "10",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 40,
+                            ),
+                          ),
+
+                          //Remover
+                          IconButton(
+                            icon: Icon(Icons.add, color: Colors.white),
+                            onPressed: () {},
+                            iconSize: 30,
+                            style: IconButton.styleFrom(
+                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  )
+                ),
+
+
+                SizedBox(height: MediaQuery.of(context).size.height * 0.065),
+
+
+                //***Botao Voltar***
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(100, 50),
                   ),
+                  onPressed: () {
+                    Navigator.pop(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TelaPersonagemEditar(nomePersonagem: widget.nomePersonagem),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    "Voltar",
+                    style: TextStyle(fontSize: 25),
+                  ),
+                ),
 
 
-
-
-
-
-
-
-
-
-                ],
-              ),
+              ],
             ),
           ),
         ],

@@ -176,6 +176,8 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
                       style: TextStyle(fontSize: 25),
                     ),
                   ),
+
+                  
                 ],
               ),
             ),
