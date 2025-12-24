@@ -22,14 +22,15 @@ class _TelaHabilidades extends State<TelaHabilidades>{
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Icon(
-              Icons.help, 
+              Icons.help,
+              color: Colors.white,
               size: 30,
             ),
             
 
             //***FutureBuilder para ele ler somente quando o arquivo for escrito, ou seja, dps
-            FutureBuilder<double?>(
-              future: FichaRepository().carregarCampoDouble("pontosD", widget.nomePersonagem),
+            FutureBuilder<int?>(
+              future: FichaRepository().carregarCampoInt("pontosD", widget.nomePersonagem),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const SizedBox(
