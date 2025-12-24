@@ -11,7 +11,39 @@ class TelaHabilidades extends StatefulWidget{
 }
 
 class _TelaHabilidades extends State<TelaHabilidades>{
+  int forca = 0;
+  int agilidade =  0;
+  int destreza = 0;
+  int luta = 0;
+  int intelecto = 0;
+  int prontidao = 0;
+  int presenca = 0;
+  int vigor = 0;
 
+  @override
+  void initState(){
+    super.initState();
+    _lerJson();
+  }
+
+  Future<void> _lerJson() async{
+    final repositorio = FichaRepository();
+    final ficha = await repositorio.carregar(widget.nomePersonagem);
+
+    if(ficha != null){
+      setState(() {
+        forca = ficha.habilidades["forca"] ?? 0;
+        agilidade = ficha.habilidades["agilidade"] ?? 0;
+        destreza = ficha.habilidades["destreza"] ?? 0;
+        luta = ficha.habilidades["luta"] ?? 0;
+        intelecto = ficha.habilidades["intelecto"] ?? 0;
+        prontidao = ficha.habilidades["prontidao"] ?? 0;
+        presenca = ficha.habilidades["presenca"] ?? 0;
+        vigor = ficha.habilidades["vigor"] ?? 0;
+      });
+      
+    }
+  }
 
   @override
   Widget build(BuildContext context){
@@ -96,7 +128,9 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                                 final mudou = ficha.adicionarHabilidade('forca', -1);
                                 if (mudou) {
                                   await repo.salvar(ficha);
-                                  setState(() {});
+                                  setState(() {
+                                    forca -= 1;
+                                  });
                                 }
                               }
                             },
@@ -114,7 +148,7 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                           
                           //Texto
                           Text(
-                            "0",
+                            "$forca",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 40,
@@ -136,7 +170,9 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                                 final mudou = ficha.adicionarHabilidade('forca', 1);
                                 if (mudou) {
                                   await repo.salvar(ficha);
-                                  setState(() {});
+                                  setState(() {
+                                    forca += 1;
+                                  });
                                 }
                               }
                             },
@@ -181,10 +217,12 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                               final repo = FichaRepository();
                               final ficha = await repo.carregar(widget.nomePersonagem);
                               if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('forca', -1);
+                                final mudou = ficha.adicionarHabilidade('agilidade', -1);
                                 if (mudou) {
                                   await repo.salvar(ficha);
-                                  setState(() {});
+                                  setState(() {
+                                    agilidade -= 1;
+                                  });
                                 }
                               }
                             },
@@ -202,7 +240,7 @@ class _TelaHabilidades extends State<TelaHabilidades>{
 
                           //Texto
                           Text(
-                            "0",
+                            "$agilidade",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 40,
@@ -221,10 +259,12 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                               final repo = FichaRepository();
                               final ficha = await repo.carregar(widget.nomePersonagem);
                               if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('forca', 1);
+                                final mudou = ficha.adicionarHabilidade('agilidade', 1);
                                 if (mudou) {
                                   await repo.salvar(ficha);
-                                  setState(() {});
+                                  setState(() {
+                                    agilidade += 1;
+                                  });
                                 }
                               }
                             },
@@ -269,10 +309,12 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                               final repo = FichaRepository();
                               final ficha = await repo.carregar(widget.nomePersonagem);
                               if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('forca', -1);
+                                final mudou = ficha.adicionarHabilidade('destreza', -1);
                                 if (mudou) {
                                   await repo.salvar(ficha);
-                                  setState(() {});
+                                  setState(() {
+                                    destreza -= 1;
+                                  });
                                 }
                               }
                             },
@@ -290,7 +332,7 @@ class _TelaHabilidades extends State<TelaHabilidades>{
 
                           //Texto
                           Text(
-                            "0",
+                            "$destreza",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 40,
@@ -309,10 +351,12 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                               final repo = FichaRepository();
                               final ficha = await repo.carregar(widget.nomePersonagem);
                               if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('forca', 1);
+                                final mudou = ficha.adicionarHabilidade('destreza', 1);
                                 if (mudou) {
                                   await repo.salvar(ficha);
-                                  setState(() {});
+                                  setState(() {
+                                    destreza += 1;
+                                  });
                                 }
                               }
                             },
@@ -357,10 +401,12 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                               final repo = FichaRepository();
                               final ficha = await repo.carregar(widget.nomePersonagem);
                               if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('forca', -1);
+                                final mudou = ficha.adicionarHabilidade('luta', -1);
                                 if (mudou) {
                                   await repo.salvar(ficha);
-                                  setState(() {});
+                                  setState(() {
+                                    luta -= 1;
+                                  });
                                 }
                               }
                             },
@@ -378,7 +424,7 @@ class _TelaHabilidades extends State<TelaHabilidades>{
 
                           //Texto
                           Text(
-                            "0",
+                            "$luta",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 40,
@@ -397,10 +443,12 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                               final repo = FichaRepository();
                               final ficha = await repo.carregar(widget.nomePersonagem);
                               if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('forca', 1);
+                                final mudou = ficha.adicionarHabilidade('luta', 1);
                                 if (mudou) {
                                   await repo.salvar(ficha);
-                                  setState(() {});
+                                  setState(() {
+                                    luta += 1;
+                                  });
                                 }
                               }
                             },
@@ -445,10 +493,12 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                               final repo = FichaRepository();
                               final ficha = await repo.carregar(widget.nomePersonagem);
                               if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('forca', -1);
+                                final mudou = ficha.adicionarHabilidade('intelecto', -1);
                                 if (mudou) {
                                   await repo.salvar(ficha);
-                                  setState(() {});
+                                  setState(() {
+                                    intelecto -= 1;
+                                  });
                                 }
                               }
                             },
@@ -466,7 +516,7 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                           
                           //Texto
                           Text(
-                            "0",
+                            "$intelecto",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 40,
@@ -485,10 +535,12 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                               final repo = FichaRepository();
                               final ficha = await repo.carregar(widget.nomePersonagem);
                               if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('forca', 1);
+                                final mudou = ficha.adicionarHabilidade('intelecto', 1);
                                 if (mudou) {
                                   await repo.salvar(ficha);
-                                  setState(() {});
+                                  setState(() {
+                                    intelecto += 1;
+                                  });
                                 }
                               }
                             },
@@ -533,10 +585,12 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                               final repo = FichaRepository();
                               final ficha = await repo.carregar(widget.nomePersonagem);
                               if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('forca', -1);
+                                final mudou = ficha.adicionarHabilidade('prontidao', -1);
                                 if (mudou) {
                                   await repo.salvar(ficha);
-                                  setState(() {});
+                                  setState(() {
+                                    prontidao -= 1;
+                                  });
                                 }
                               }
                             },
@@ -554,7 +608,7 @@ class _TelaHabilidades extends State<TelaHabilidades>{
 
                           //Texto
                           Text(
-                            "0",
+                            "$prontidao",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 40,
@@ -573,10 +627,12 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                               final repo = FichaRepository();
                               final ficha = await repo.carregar(widget.nomePersonagem);
                               if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('forca', 1);
+                                final mudou = ficha.adicionarHabilidade('prontidao', 1);
                                 if (mudou) {
                                   await repo.salvar(ficha);
-                                  setState(() {});
+                                  setState(() {
+                                    prontidao += 1;
+                                  });
                                 }
                               }
                             },
@@ -621,10 +677,12 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                               final repo = FichaRepository();
                               final ficha = await repo.carregar(widget.nomePersonagem);
                               if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('forca', -1);
+                                final mudou = ficha.adicionarHabilidade('presenca', -1);
                                 if (mudou) {
                                   await repo.salvar(ficha);
-                                  setState(() {});
+                                  setState(() {
+                                    presenca -= 1;
+                                  });
                                 }
                               }
                             },
@@ -642,7 +700,7 @@ class _TelaHabilidades extends State<TelaHabilidades>{
 
                           //Texto
                           Text(
-                            "0",
+                            "$presenca",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 40,
@@ -661,10 +719,12 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                               final repo = FichaRepository();
                               final ficha = await repo.carregar(widget.nomePersonagem);
                               if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('forca', 1);
+                                final mudou = ficha.adicionarHabilidade('presenca', 1);
                                 if (mudou) {
                                   await repo.salvar(ficha);
-                                  setState(() {});
+                                  setState(() {
+                                    presenca += 1;
+                                  });
                                 }
                               }
                             },
@@ -709,10 +769,12 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                               final repo = FichaRepository();
                               final ficha = await repo.carregar(widget.nomePersonagem);
                               if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('forca', -1);
+                                final mudou = ficha.adicionarHabilidade('vigor', -1);
                                 if (mudou) {
                                   await repo.salvar(ficha);
-                                  setState(() {});
+                                  setState(() {
+                                    vigor -= 1;
+                                  });
                                 }
                               }
                             },
@@ -730,7 +792,7 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                           
                           //Texto
                           Text(
-                            "0",
+                            "$vigor",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 40,
@@ -749,10 +811,12 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                               final repo = FichaRepository();
                               final ficha = await repo.carregar(widget.nomePersonagem);
                               if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('forca', 1);
+                                final mudou = ficha.adicionarHabilidade('vigor', 1);
                                 if (mudou) {
                                   await repo.salvar(ficha);
-                                  setState(() {});
+                                  setState(() {
+                                    vigor += 1;
+                                  });
                                 }
                               }
                             },
