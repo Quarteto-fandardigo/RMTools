@@ -18,179 +18,184 @@ class _TelaPersonagemEditarState extends State<TelaPersonagemEditar> {
   Widget build(BuildContext context){
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 21, 22, 34),
-      body: SingleChildScrollView(//<--- isso faz com que eu coloque os widgets normalmente sem me preocupar com o tamanho do nome do personagem, já que ele libera um scroll caso "Falte tela"
-        child: Center(
-          child: Padding(
+      body: Column(
+        children: [
+          //***Titulo*** - Fora do scroll para ficar fixo
+          Padding(
             padding: const EdgeInsets.only(top:20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-
-                //***Titulo***
-                Text(
-                  "Ficha do(a) ${widget.nomePersonagem}",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 50,
-                    fontWeight: FontWeight.w500
-                  ),
-                ),
-
-
-                //***espaçamento***
-                const SizedBox(height: 40),
-
-
-                //***BOTÃO info basica***
-                ElevatedButton(
-                    
-                  //tamanho botão
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(300, 100)
-                  ),
-
-                  //função botão
-                  onPressed: () {},
-                    
-                  //texto botão
-                  child: const Text(
-                    "Informações básicas", 
-                    style: TextStyle(
-                      fontSize: 25,
-                    ),
-                  ),
-                ),
-
-
-                //***espaçamento***
-                const SizedBox(height: 40),
-
-
-                //***BOTÃO info basica***
-                ElevatedButton(
-                  
-                //tamanho botão
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(300, 100)
-                ),
-
-                //função botão
-                onPressed: () {},
-                  
-                //texto botão
-                child: const Text(
-                  "Habilidades", 
-                  style: TextStyle(
-                    fontSize: 25,
-                    ),
-                  ),
-                ),
-                
-
-                //***espaçamento***
-                const SizedBox(height: 40),
-
-
-                //***BOTÃO info basica***
-                ElevatedButton(
-                  
-                //tamanho botão
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(300, 100)
-                ),
-
-                //função botão
-                onPressed: () {},
-                  
-                //texto botão
-                child: const Text(
-                  "Perícias", 
-                  style: TextStyle(
-                    fontSize: 25,
-                    ),
-                  ),
-                ),
-
-
-                //***espaçamento***
-                const SizedBox(height: 40),
-
-
-                //***BOTÃO info basica***
-                ElevatedButton(
-                  
-                //tamanho botão
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(300, 100)
-                ),
-
-                //função botão
-                onPressed: () {},
-                  
-                //texto botão
-                child: const Text(
-                  "Vantagens", 
-                  style: TextStyle(
-                    fontSize: 25,
-                    ),
-                  ),
-                ),
-
-
-                //***espaçamento***
-                const SizedBox(height: 40),
-
-
-                //***BOTÃO info basica***
-                ElevatedButton(
-                  
-                //tamanho botão
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(300, 100)
-                ),
-
-                //função botão
-                onPressed: () {},
-                  
-                //texto botão
-                child: const Text(
-                  "Poderes", 
-                  style: TextStyle(
-                    fontSize: 25,
-                    ),
-                  ),
-                ),
-
-
-                //***espaçamento***
-                const SizedBox(height: 40),
-
-
-                //***Botao Voltar***
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(100, 50),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const TelaListaFicha(),
-                      ),
-                    );
-                  },
-                  child: const Text(
-                    "Voltar",
-                    style: TextStyle(fontSize: 25),
-                  ),
-                ),
-
-                SizedBox(height: 20),
-              ],
-            )
+            child: Text(
+              "Ficha do(a) ${widget.nomePersonagem}",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 50,
+                fontWeight: FontWeight.w500
+              ),
+            ),
           ),
-        ),
+
+          Expanded(
+            child: SingleChildScrollView(//<--- isso faz com que eu coloque os widgets normalmente sem me preocupar com o tamanho do nome do personagem, já que ele libera um scroll caso "Falte tela"
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(top:20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+
+                      
+                      //***BOTÃO info basica***
+                      ElevatedButton(
+                          
+                        //tamanho botão
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(300, 100)
+                        ),
+
+                        //função botão
+                        onPressed: () {},
+                          
+                        //texto botão
+                        child: const Text(
+                          "Informações básicas", 
+                          style: TextStyle(
+                            fontSize: 25,
+                          ),
+                        ),
+                      ),
+
+
+                      //***espaçamento***
+                      const SizedBox(height: 40),
+
+
+                      //***BOTÃO info basica***
+                      ElevatedButton(
+                        
+                      //tamanho botão
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(300, 100)
+                      ),
+
+                      //função botão
+                      onPressed: () {},
+                        
+                      //texto botão
+                      child: const Text(
+                        "Habilidades", 
+                        style: TextStyle(
+                          fontSize: 25,
+                          ),
+                        ),
+                      ),
+                      
+
+                      //***espaçamento***
+                      const SizedBox(height: 40),
+
+
+                      //***BOTÃO info basica***
+                      ElevatedButton(
+                        
+                      //tamanho botão
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(300, 100)
+                      ),
+
+                      //função botão
+                      onPressed: () {},
+                        
+                      //texto botão
+                      child: const Text(
+                        "Perícias", 
+                        style: TextStyle(
+                          fontSize: 25,
+                          ),
+                        ),
+                      ),
+
+
+                      //***espaçamento***
+                      const SizedBox(height: 40),
+
+
+                      //***BOTÃO info basica***
+                      ElevatedButton(
+                        
+                      //tamanho botão
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(300, 100)
+                      ),
+
+                      //função botão
+                      onPressed: () {},
+                        
+                      //texto botão
+                      child: const Text(
+                        "Vantagens", 
+                        style: TextStyle(
+                          fontSize: 25,
+                          ),
+                        ),
+                      ),
+
+
+                      //***espaçamento***
+                      const SizedBox(height: 40),
+
+
+                      //***BOTÃO info basica***
+                      ElevatedButton(
+                        
+                      //tamanho botão
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(300, 100)
+                      ),
+
+                      //função botão
+                      onPressed: () {},
+                        
+                      //texto botão
+                      child: const Text(
+                        "Poderes", 
+                        style: TextStyle(
+                          fontSize: 25,
+                          ),
+                        ),
+                      ),
+
+
+                      //***espaçamento***
+                      const SizedBox(height: 40),
+
+
+                      //***Botao Voltar***
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(100, 50),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const TelaListaFicha(),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          "Voltar",
+                          style: TextStyle(fontSize: 25),
+                        ),
+                      ),
+
+                      SizedBox(height: 20),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       )
     );
   }
