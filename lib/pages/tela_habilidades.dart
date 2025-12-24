@@ -21,10 +21,11 @@ class _TelaHabilidades extends State<TelaHabilidades>{
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Icon(
-              Icons.help,
+            IconButton(
+              icon: Icon(Icons.help),
+              iconSize: 35,
               color: Colors.white,
-              size: 30,
+              onPressed: () {},
             ),
             
 
@@ -41,7 +42,7 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                 }
 
 
-                final pontos = snapshot.data ?? 0.0;
+                final pontos = snapshot.data ?? 0;
 
                 //***Texto Pontos Disponíveis***
                 return Text(
