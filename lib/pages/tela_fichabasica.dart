@@ -83,6 +83,16 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
                   ),
 
 
+                  Text(
+                    "NP: Nível de Poder",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white
+                    ),
+                  ),
+
+
                   //***Slider***
                   Slider(
                     value: valorNP.toDouble(),
@@ -99,81 +109,85 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
 
                   
                   //***Espaçamento***
-                  const SizedBox(height: 295),
+                  Spacer(),
 
+                  
+                  //***Padding dos botões***
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 30),
 
-                  //***Botao Cria ficha***
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(300, 100),
-                    ),
-                    onPressed: () async{
-                      final navigator = Navigator.of(context);
+                    //***Botao Cria ficha***
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(300, 100),
+                      ),
+                      onPressed: () async{
+                        final navigator = Navigator.of(context);
 
-                      if (nomeJogador.text.isEmpty || nomePersonagem.text.isEmpty){
+                        if (nomeJogador.text.isEmpty || nomePersonagem.text.isEmpty){
+                          setState(() {
+                            erro = true;
+                            sucesso = false;
+                          });
+                          return;
+                        }
+
                         setState(() {
-                          erro = true;
+                          erro = false;
                           sucesso = false;
+
+                          //Instancia a ficha
+                          fichaPersonagem = Ficha.criar(
+                            np: valorNP,
+                            nomeJogador: nomeJogador.text,
+                            nomePersonagem: nomePersonagem.text,
+                          );
+                          
+                          //Salva a ficha
+                          FichaRepository().salvar(fichaPersonagem);
+                          
+                          sucesso = true;
                         });
-                        return;
-                      }
 
-                      setState(() {
-                        erro = false;
-                        sucesso = false;
+                        await Future.delayed(const Duration(seconds: 1));
 
-                        //Instancia a ficha
-                        fichaPersonagem = Ficha.criar(
-                          np: valorNP,
-                          nomeJogador: nomeJogador.text,
-                          nomePersonagem: nomePersonagem.text,
-                        );
-                        
-                        //Salva a ficha
-                        FichaRepository().salvar(fichaPersonagem);
-                        
-                        sucesso = true;
-                      });
+                        if(!mounted){
+                          return;
+                        }
 
-                      await Future.delayed(const Duration(seconds: 1));
-
-                      if(!mounted){
-                        return;
-                      }
-
-                      navigator.push(
-                          MaterialPageRoute(
-                            builder: (context) => const TelaListaFicha(),
-                          )
-                      );   
-                    },
-                    child: const Text(
-                      "Criar ficha",
-                      style: TextStyle(fontSize: 25),
+                        navigator.push(
+                            MaterialPageRoute(
+                              builder: (context) => const TelaListaFicha(),
+                            )
+                        );   
+                      },
+                      child: const Text(
+                        "Criar ficha",
+                        style: TextStyle(fontSize: 25),
+                      ),
                     ),
                   ),
 
 
-                  //***Espaçamento***
-                  const SizedBox(height: 20),
-
-
                   //***Botao Voltar***
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(100, 50),
-                    ),
-                    onPressed: () {
-                      Navigator.pop(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const TelaListaFicha(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      "Voltar",
-                      style: TextStyle(fontSize: 25),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 30),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(100, 50),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const TelaListaFicha(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        "Voltar",
+                        style: TextStyle(fontSize: 25),
+                      ),
                     ),
                   ),
 
