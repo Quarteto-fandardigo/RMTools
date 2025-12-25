@@ -280,7 +280,6 @@ class _TelaHabilidades extends State<TelaHabilidades>{
               ),
             ),
           ),
-
         ],
       ),
     );
