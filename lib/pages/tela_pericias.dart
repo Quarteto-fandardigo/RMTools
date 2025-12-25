@@ -13,7 +13,9 @@ class _TelaPericias extends State<TelaPericias>{
   Widget build(BuildContext context){
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 21, 22, 34),
-      
+      body: Column(
+        
+      ),
     );
   }
 }

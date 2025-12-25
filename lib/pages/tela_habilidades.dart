@@ -27,6 +27,8 @@ class _TelaHabilidades extends State<TelaHabilidades>{
   int vigor = 0;
   int pontosDisponiveis = 0;
 
+
+  //***Ler o json***
   Future<void> _lerJson() async{
     final repositorio = FichaRepository();
     final ficha = await repositorio.carregar(widget.nomePersonagem);
@@ -45,6 +47,57 @@ class _TelaHabilidades extends State<TelaHabilidades>{
       });
     }
   }
+  //***Método de alterar as habilidades e pontos***
+  Future<void> alterar(String chave, int valor, Function(int,int) atualizar) async {
+    final repo = FichaRepository();
+    final ficha = await repo.carregar(widget.nomePersonagem);
+    if (ficha != null && ficha.adicionarHabilidade(chave, valor)) {
+      await repo.salvar(ficha);
+      atualizar(ficha.habilidades[chave] ?? 0, ficha.pontosD);
+    }
+  }
+
+  //***Método UI que resolve a repetição***
+  Widget habilidadeUI(String label, String chave, int valor, Function(int,int) atualizar) {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label, style: const TextStyle(color: Colors.white, fontSize: 40)),
+          Row(
+            children: [
+              IconButton(
+                icon: const Icon(Icons.remove, color: Colors.white),
+                iconSize: 30,
+                style: IconButton.styleFrom(
+                  side: const BorderSide(color: Colors.white24, width: 1),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                ),
+                onPressed: () => alterar(chave, -1, atualizar),
+              ),
+
+              const SizedBox(width: 15),
+
+              Text("$valor", style: const TextStyle(color: Colors.white, fontSize: 40)),
+              
+              const SizedBox(width: 15),
+              
+              IconButton(
+                icon: const Icon(Icons.add, color: Colors.white),
+                iconSize: 30,
+                style: IconButton.styleFrom(
+                  side: const BorderSide(color: Colors.white24, width: 1),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                ),
+                onPressed: () => alterar(chave, 1, atualizar),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context){
@@ -52,22 +105,21 @@ class _TelaHabilidades extends State<TelaHabilidades>{
       backgroundColor: const Color.fromARGB(255, 21, 22, 34),
       body: Column(
         children: [
+          //***Botao de duvida e pontos***
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-
-                //***Botao de duvida***
+                // Botão de ajuda
                 IconButton(
-                  icon: Icon(Icons.help),
+                  icon: const Icon(Icons.help, color: Colors.white),
                   iconSize: 35,
-                  color: Colors.white,
                   onPressed: () {
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                        backgroundColor: const Color.fromARGB(255, 21, 22, 34),
+                        backgroundColor: Color.fromARGB(255, 21, 22, 34),
                         title: Text("Ajuda", style: TextStyle(color: Colors.white)),
                         content: SizedBox(
                           height: 350,
@@ -103,815 +155,126 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                         actions: [
                           TextButton(
                             onPressed: () {
-                              Navigator.of(context).pop();//<-- fecha o pop-up
+                              Navigator.of(context).pop();
                             },
                             child: Text(
                               "Fechar",
                               style: TextStyle(
                                 color: Colors.grey,
                                 fontSize: 22,
-                              ),
-                            ),
+                              )
+                            )
                           ),
-                        ],
-                      ),                   
+                        ]
+                      ),
                     );
                   },
                 ),
-                
 
-                //***FutureBuilder para ele ler somente quando o arquivo for escrito, ou seja, dps
+                // Pontos disponíveis
                 Text(
                   "Pontos disponíveis: $pontosDisponiveis",
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
                 ),
               ],
             ),
           ),
-          Expanded(
-            child: Column(
-              children: [
 
-                //***Força***
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      
-                      //Texto stepper Força
-                      Text(
-                        "Força:",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 40,
-                        ),
-                      ),
-                      
-
-                      //***Stepper***
-                      Row(
-                        children: [
-
-                          //Remover
-                          IconButton(
-                            icon: Icon(Icons.remove, color: Colors.white),
-                            onPressed: () async {
-                              final repo = FichaRepository();
-                              final ficha = await repo.carregar(widget.nomePersonagem);
-                              if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('forca', -1);
-                                if (mudou) {
-                                  await repo.salvar(ficha);
-                                  setState(() {
-                                    forca = ficha.habilidades['forca'] ?? forca;
-                                    pontosDisponiveis = ficha.pontosD;
-                                  });
-                                }
-                              }
-                            },
-                            iconSize: 30,
-                            style: IconButton.styleFrom(
-                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                            ),
-                          ),
-
-
-                          // Espaço entre o botão e o texto
-                          const SizedBox(width: 15),
-
-                          
-                          //Texto
-                          Text(
-                            "$forca",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 40,
-                            ),
-                          ),
-
-
-                          // Espaço entre o botão e o texto
-                          const SizedBox(width: 15),
-
-
-                          //Adicionar
-                          IconButton(
-                            icon: Icon(Icons.add, color: Colors.white),
-                            onPressed: () async {
-                              final repo = FichaRepository();
-                              final ficha = await repo.carregar(widget.nomePersonagem);
-                              if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('forca', 1);
-                                if (mudou) {
-                                  await repo.salvar(ficha);
-                                  setState(() {
-                                    forca = ficha.habilidades['forca'] ?? forca;
-                                    pontosDisponiveis = ficha.pontosD;
-                                  });
-                                }
-                              }
-                            },
-                            iconSize: 30,
-                            style: IconButton.styleFrom(
-                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  )
-                ),
-                
-
-                //***Agilidade***
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      
-                      //Texto stepper Força
-                      Text(
-                        "Agilidade:",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 40,
-                        ),
-                      ),
-                      
-
-                      //***Stepper***
-                      Row(
-                        children: [
-
-                          //Remover
-                          IconButton(
-                            icon: Icon(Icons.remove, color: Colors.white),
-                            onPressed: () async {
-                              final repo = FichaRepository();
-                              final ficha = await repo.carregar(widget.nomePersonagem);
-                              if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('agilidade', -1);
-                                if (mudou) {
-                                  await repo.salvar(ficha);
-                                  setState(() {
-                                    agilidade = ficha.habilidades['agilidade'] ?? agilidade;
-                                    pontosDisponiveis = ficha.pontosD;
-                                  });
-                                }
-                              }
-                            },
-                            iconSize: 30,
-                            style: IconButton.styleFrom(
-                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                            ),
-                          ),
-                          
-
-                          // Espaço entre o botão e o texto
-                          const SizedBox(width: 15),
-
-
-                          //Texto
-                          Text(
-                            "$agilidade",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 40,
-                            ),
-                          ),
-
-
-                          // Espaço entre o botão e o texto
-                          const SizedBox(width: 15),
-
-
-                          //Adicionar
-                          IconButton(
-                            icon: Icon(Icons.add, color: Colors.white),
-                            onPressed: () async {
-                              final repo = FichaRepository();
-                              final ficha = await repo.carregar(widget.nomePersonagem);
-                              if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('agilidade', 1);
-                                if (mudou) {
-                                  await repo.salvar(ficha);
-                                  setState(() {
-                                    agilidade = ficha.habilidades['agilidade'] ?? agilidade;
-                                    pontosDisponiveis = ficha.pontosD;
-                                  });
-                                }
-                              }
-                            },
-                            iconSize: 30,
-                            style: IconButton.styleFrom(
-                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  )
-                ),
-
-
-                //***Destreza***
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      
-                      //Texto stepper Força
-                      Text(
-                        "Destreza:",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 40,
-                        ),
-                      ),
-                      
-
-                      //***Stepper***
-                      Row(
-                        children: [
-
-                          //Remover
-                          IconButton(
-                            icon: Icon(Icons.remove, color: Colors.white),
-                            onPressed: () async {
-                              final repo = FichaRepository();
-                              final ficha = await repo.carregar(widget.nomePersonagem);
-                              if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('destreza', -1);
-                                if (mudou) {
-                                  await repo.salvar(ficha);
-                                  setState(() {
-                                    destreza = ficha.habilidades['destreza'] ?? destreza;
-                                    pontosDisponiveis = ficha.pontosD;
-                                  });
-                                }
-                              }
-                            },
-                            iconSize: 30,
-                            style: IconButton.styleFrom(
-                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                            ),
-                          ),
-                          
-
-                          // Espaço entre o botão e o texto
-                          const SizedBox(width: 15),
-
-
-                          //Texto
-                          Text(
-                            "$destreza",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 40,
-                            ),
-                          ),
-
-
-                          // Espaço entre o botão e o texto
-                          const SizedBox(width: 15),
-
-
-                          //Adicionar
-                          IconButton(
-                            icon: Icon(Icons.add, color: Colors.white),
-                            onPressed: () async {
-                              final repo = FichaRepository();
-                              final ficha = await repo.carregar(widget.nomePersonagem);
-                              if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('destreza', 1);
-                                if (mudou) {
-                                  await repo.salvar(ficha);
-                                  setState(() {
-                                    destreza = ficha.habilidades['destreza'] ?? destreza;
-                                    pontosDisponiveis = ficha.pontosD;
-                                  });
-                                }
-                              }
-                            },
-                            iconSize: 30,
-                            style: IconButton.styleFrom(
-                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  )
-                ),
-
-
-                //***Luta***
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      
-                      //Texto stepper Força
-                      Text(
-                        "Luta:",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 40,
-                        ),
-                      ),
-                      
-
-                      //***Stepper***
-                      Row(
-                        children: [
-
-                          //Remover
-                          IconButton(
-                            icon: Icon(Icons.remove, color: Colors.white),
-                            onPressed: () async {
-                              final repo = FichaRepository();
-                              final ficha = await repo.carregar(widget.nomePersonagem);
-                              if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('luta', -1);
-                                if (mudou) {
-                                  await repo.salvar(ficha);
-                                  setState(() {
-                                    luta = ficha.habilidades['luta'] ?? luta;
-                                    pontosDisponiveis = ficha.pontosD;
-                                  });
-                                }
-                              }
-                            },
-                            iconSize: 30,
-                            style: IconButton.styleFrom(
-                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                            ),
-                          ),
-                          
-
-                          // Espaço entre o botão e o texto
-                          const SizedBox(width: 15),
-
-
-                          //Texto
-                          Text(
-                            "$luta",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 40,
-                            ),
-                          ),
-
-
-                          // Espaço entre o botão e o texto
-                          const SizedBox(width: 15),
-
-
-                          //Adicionar
-                          IconButton(
-                            icon: Icon(Icons.add, color: Colors.white),
-                            onPressed: () async {
-                              final repo = FichaRepository();
-                              final ficha = await repo.carregar(widget.nomePersonagem);
-                              if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('luta', 1);
-                                if (mudou) {
-                                  await repo.salvar(ficha);
-                                  setState(() {
-                                    luta = ficha.habilidades['luta'] ?? luta;
-                                    pontosDisponiveis = ficha.pontosD;
-                                  });
-                                }
-                              }
-                            },
-                            iconSize: 30,
-                            style: IconButton.styleFrom(
-                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  )
-                ),
-
-
-                //***Intelecto***
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      
-                      //Texto stepper Força
-                      Text(
-                        "Intelecto:",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 40,
-                        ),
-                      ),
-                      
-
-                      //***Stepper***
-                      Row(
-                        children: [
-
-                          //Remover
-                          IconButton(
-                            icon: Icon(Icons.remove, color: Colors.white),
-                            onPressed: () async {
-                              final repo = FichaRepository();
-                              final ficha = await repo.carregar(widget.nomePersonagem);
-                              if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('intelecto', -1);
-                                if (mudou) {
-                                  await repo.salvar(ficha);
-                                  setState(() {
-                                    intelecto = ficha.habilidades['intelecto'] ?? intelecto;
-                                    pontosDisponiveis = ficha.pontosD;
-                                  });
-                                }
-                              }
-                            },
-                            iconSize: 30,
-                            style: IconButton.styleFrom(
-                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                            ),
-                          ),
-
-
-                          // Espaço entre o botão e o texto
-                          const SizedBox(width: 15),
-
-                          
-                          //Texto
-                          Text(
-                            "$intelecto",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 40,
-                            ),
-                          ),
-
-
-                          // Espaço entre o botão e o texto
-                          const SizedBox(width: 15),
-
-
-                          //Adicionar
-                          IconButton(
-                            icon: Icon(Icons.add, color: Colors.white),
-                            onPressed: () async {
-                              final repo = FichaRepository();
-                              final ficha = await repo.carregar(widget.nomePersonagem);
-                              if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('intelecto', 1);
-                                if (mudou) {
-                                  await repo.salvar(ficha);
-                                  setState(() {
-                                    intelecto = ficha.habilidades['intelecto'] ?? intelecto;
-                                    pontosDisponiveis = ficha.pontosD;
-                                  });
-                                }
-                              }
-                            },
-                            iconSize: 30,
-                            style: IconButton.styleFrom(
-                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  )
-                ),
-
-
-                //***Prontidão***
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      
-                      //Texto stepper Força
-                      Text(
-                        "Prontidão:",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 40,
-                        ),
-                      ),
-                      
-
-                      //***Stepper***
-                      Row(
-                        children: [
-
-                          //Remover
-                          IconButton(
-                            icon: Icon(Icons.remove, color: Colors.white),
-                            onPressed: () async {
-                              final repo = FichaRepository();
-                              final ficha = await repo.carregar(widget.nomePersonagem);
-                              if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('prontidao', -1);
-                                if (mudou) {
-                                  await repo.salvar(ficha);
-                                  setState(() {
-                                    prontidao = ficha.habilidades['prontidao'] ?? prontidao;
-                                    pontosDisponiveis = ficha.pontosD;
-                                  });
-                                }
-                              }
-                            },
-                            iconSize: 30,
-                            style: IconButton.styleFrom(
-                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                            ),
-                          ),
-                          
-
-                          // Espaço entre o botão e o texto
-                          const SizedBox(width: 15),
-
-
-                          //Texto
-                          Text(
-                            "$prontidao",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 40,
-                            ),
-                          ),
-
-
-                          // Espaço entre o botão e o texto
-                          const SizedBox(width: 15),
-
-
-                          //Adicionar
-                          IconButton(
-                            icon: Icon(Icons.add, color: Colors.white),
-                            onPressed: () async {
-                              final repo = FichaRepository();
-                              final ficha = await repo.carregar(widget.nomePersonagem);
-                              if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('prontidao', 1);
-                                if (mudou) {
-                                  await repo.salvar(ficha);
-                                  setState(() {
-                                    prontidao = ficha.habilidades['prontidao'] ?? prontidao;
-                                    pontosDisponiveis = ficha.pontosD;
-                                  });
-                                }
-                              }
-                            },
-                            iconSize: 30,
-                            style: IconButton.styleFrom(
-                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  )
-                ),
-
-
-                //***Presença***
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      
-                      //Texto stepper Força
-                      Text(
-                        "Presença:",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 40,
-                        ),
-                      ),
-                      
-
-                      //***Stepper***
-                      Row(
-                        children: [
-
-                          //Remover
-                          IconButton(
-                            icon: Icon(Icons.remove, color: Colors.white),
-                            onPressed: () async {
-                              final repo = FichaRepository();
-                              final ficha = await repo.carregar(widget.nomePersonagem);
-                              if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('presenca', -1);
-                                if (mudou) {
-                                  await repo.salvar(ficha);
-                                  setState(() {
-                                    presenca = ficha.habilidades['presenca'] ?? presenca;
-                                    pontosDisponiveis = ficha.pontosD;
-                                  });
-                                }
-                              }
-                            },
-                            iconSize: 30,
-                            style: IconButton.styleFrom(
-                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                            ),
-                          ),
-                          
-
-                          // Espaço entre o botão e o texto
-                          const SizedBox(width: 15),
-
-
-                          //Texto
-                          Text(
-                            "$presenca",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 40,
-                            ),
-                          ),
-
-
-                          // Espaço entre o botão e o texto
-                          const SizedBox(width: 15),
-
-
-                          //Adicionar
-                          IconButton(
-                            icon: Icon(Icons.add, color: Colors.white),
-                            onPressed: () async {
-                              final repo = FichaRepository();
-                              final ficha = await repo.carregar(widget.nomePersonagem);
-                              if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('presenca', 1);
-                                if (mudou) {
-                                  await repo.salvar(ficha);
-                                  setState(() {
-                                    presenca = ficha.habilidades['presenca'] ?? presenca;
-                                    pontosDisponiveis = ficha.pontosD;
-                                  });
-                                }
-                              }
-                            },
-                            iconSize: 30,
-                            style: IconButton.styleFrom(
-                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  )
-                ),
-
-
-                //***Vigor***
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      
-                      //Texto stepper Força
-                      Text(
-                        "Vigor:",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 40,
-                        ),
-                      ),
-                      
-
-                      //***Stepper***
-                      Row(
-                        children: [
-
-                          //Remover
-                          IconButton(
-                            icon: Icon(Icons.remove, color: Colors.white),
-                            onPressed: () async {
-                              final repo = FichaRepository();
-                              final ficha = await repo.carregar(widget.nomePersonagem);
-                              if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('vigor', -1);
-                                if (mudou) {
-                                  await repo.salvar(ficha);
-                                  setState(() {
-                                    vigor = ficha.habilidades['vigor'] ?? vigor;
-                                    pontosDisponiveis = ficha.pontosD;
-                                  });
-                                }
-                              }
-                            },
-                            iconSize: 30,
-                            style: IconButton.styleFrom(
-                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                            ),
-                          ),
-
-
-                          // Espaço entre o botão e o texto
-                          const SizedBox(width: 15),
-
-                          
-                          //Texto
-                          Text(
-                            "$vigor",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 40,
-                            ),
-                          ),
-
-
-                          // Espaço entre o botão e o texto
-                          const SizedBox(width: 15),
-
-
-                          //Adicionar
-                          IconButton(
-                            icon: Icon(Icons.add, color: Colors.white),
-                            onPressed: () async {
-                              final repo = FichaRepository();
-                              final ficha = await repo.carregar(widget.nomePersonagem);
-                              if (ficha != null) {
-                                final mudou = ficha.adicionarHabilidade('vigor', 1);
-                                if (mudou) {
-                                  await repo.salvar(ficha);
-                                  setState(() {
-                                    vigor = ficha.habilidades['vigor'] ?? vigor;
-                                    pontosDisponiveis = ficha.pontosD;
-                                  });
-                                }
-                              }
-                            },
-                            iconSize: 30,
-                            style: IconButton.styleFrom(
-                              side: const BorderSide(color: Colors.white24, width: 1),//Borda
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  )
-                ),
-
-
-                SizedBox(height: MediaQuery.of(context).size.height * 0.065),
-
-
-                //***Botao Voltar***
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(100, 50),
+          //***Força***
+          habilidadeUI("Força:", "forca", forca, (v, p){
+            setState(() {
+              forca = v;
+              pontosDisponiveis = p;
+            });
+          }),
+
+
+          //***Agilidade***
+          habilidadeUI("Agilidade:", "agilidade", agilidade, (v, p){
+            setState(() {
+              agilidade = v;
+              pontosDisponiveis = p;
+            });
+          }),
+
+
+          //***Destreza***
+          habilidadeUI("Destreza:", "destreza", destreza, (v, p){
+            setState(() {
+              destreza = v;
+              pontosDisponiveis = p;
+            });
+          }),
+
+
+          //***Luta***
+          habilidadeUI("Luta:", "luta", luta, (v, p){
+            setState(() {
+              luta = v;
+              pontosDisponiveis = p;
+            });
+          }),
+
+
+          //***Intelecto***
+          habilidadeUI("Intelecto:", "intelecto", intelecto, (v, p){
+            setState(() {
+              intelecto = v;
+              pontosDisponiveis = p;
+            });
+          }),
+
+          //***Prontidão***
+          habilidadeUI("Prontidão:", "prontidao", prontidao, (v, p){
+            setState(() {
+              prontidao = v;
+              pontosDisponiveis = p;
+            });
+          }),
+
+          //***Presença***
+          habilidadeUI("Presença:", "presenca", presenca, (v, p){
+            setState(() {
+              presenca = v;
+              pontosDisponiveis = p;
+            });
+          }),
+
+          //***Vigor***
+          habilidadeUI("Vigor:", "vigor", vigor, (v, p){
+            setState(() {
+              vigor = v;
+              pontosDisponiveis = p;
+            });
+          }),
+
+
+          //***Espaçamento***
+          Spacer(),
+
+
+          //***Botao Voltar***
+          Padding(
+            padding: const EdgeInsets.only(bottom: 30),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size(100, 50),
+              ),
+              onPressed: () {
+                Navigator.pop(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TelaPersonagemEditar(nomePersonagem: widget.nomePersonagem),
                   ),
-                  onPressed: () {
-                    Navigator.pop(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => TelaPersonagemEditar(nomePersonagem: widget.nomePersonagem),
-                      ),
-                    );
-                  },
-                  child: const Text(
-                    "Voltar",
-                    style: TextStyle(fontSize: 25),
-                  ),
-                ),
-              ],
+                );
+              },
+              child: const Text(
+                "Voltar",
+                style: TextStyle(fontSize: 25),
+              ),
             ),
           ),
+
         ],
       ),
     );
