@@ -67,6 +67,8 @@ class _TelaHabilidades extends State<TelaHabilidades>{
           Text(label, style: const TextStyle(color: Colors.white, fontSize: 40)),
           Row(
             children: [
+
+              //diminuir
               IconButton(
                 icon: const Icon(Icons.remove, color: Colors.white),
                 iconSize: 30,
@@ -77,12 +79,16 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                 onPressed: () => alterar(chave, -1, atualizar),
               ),
 
+              //espaçamento
               const SizedBox(width: 15),
 
+              //valor
               Text("$valor", style: const TextStyle(color: Colors.white, fontSize: 40)),
               
+              //espaçamento
               const SizedBox(width: 15),
               
+              //adicionar
               IconButton(
                 icon: const Icon(Icons.add, color: Colors.white),
                 iconSize: 30,
