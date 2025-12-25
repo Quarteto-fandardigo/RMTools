@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rmtools/pages/tela_habilidades.dart';
 import 'package:rmtools/pages/tela_listafichas.dart';
+import 'package:rmtools/pages/tela_pericias.dart';
 
 
 class TelaPersonagemEditar extends StatefulWidget{
@@ -111,7 +112,14 @@ class _TelaPersonagemEditarState extends State<TelaPersonagemEditar> {
                       ),
 
                       //função botão
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TelaPericias(nomePersonagem: widget.nomePersonagem),
+                          ),
+                        );
+                      },
                         
                       //texto botão
                       child: const Text(

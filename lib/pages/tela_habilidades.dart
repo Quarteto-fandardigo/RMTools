@@ -11,6 +11,12 @@ class TelaHabilidades extends StatefulWidget{
 }
 
 class _TelaHabilidades extends State<TelaHabilidades>{
+  @override
+  void initState(){
+    super.initState();
+    _lerJson();
+  }
+    
   int forca = 0;
   int agilidade =  0;
   int destreza = 0;
@@ -19,12 +25,7 @@ class _TelaHabilidades extends State<TelaHabilidades>{
   int prontidao = 0;
   int presenca = 0;
   int vigor = 0;
-
-  @override
-  void initState(){
-    super.initState();
-    _lerJson();
-  }
+  int pontosDisponiveis = 0;
 
   Future<void> _lerJson() async{
     final repositorio = FichaRepository();
@@ -40,8 +41,8 @@ class _TelaHabilidades extends State<TelaHabilidades>{
         prontidao = ficha.habilidades["prontidao"] ?? 0;
         presenca = ficha.habilidades["presenca"] ?? 0;
         vigor = ficha.habilidades["vigor"] ?? 0;
+        pontosDisponiveis = ficha.pontosD;
       });
-      
     }
   }
 
@@ -74,7 +75,8 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                           child: SingleChildScrollView(
                             child: Text(
                               "Habilidades são como o sistema chama os atributos, ex: força. "
-                              "Cada graduação em uma habilidade custa 2 pontos de poder, retirar concede 2 pontos. "
+                              "Cada graduação em uma habilidade custa 2 pontos de poder, retirar concede 2 pontos,"
+                              " contudo tem um limite de quanto você consegue retirar de graduações, o limite é até -5 de graduação"
                               "Segue a escala (material oficial):\n\n"
                               "-5 — Completamente inepto\n"
                               "-4 — Criança muito nova (<6 anos)\n"
@@ -119,30 +121,13 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                 
 
                 //***FutureBuilder para ele ler somente quando o arquivo for escrito, ou seja, dps
-                FutureBuilder<int?>(
-                  future: FichaRepository().carregarCampoInt("pontosD", widget.nomePersonagem),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      );
-                    }
-
-
-                    final pontos = snapshot.data ?? 0;
-
-                    //***Texto Pontos Disponíveis***
-                    return Text(
-                      "Pontos disponíveis: $pontos",
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    );
-                  },
+                Text(
+                  "Pontos disponíveis: $pontosDisponiveis",
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ],
             ),
@@ -183,7 +168,8 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                                 if (mudou) {
                                   await repo.salvar(ficha);
                                   setState(() {
-                                    forca -= 1;
+                                    forca = ficha.habilidades['forca'] ?? forca;
+                                    pontosDisponiveis = ficha.pontosD;
                                   });
                                 }
                               }
@@ -225,7 +211,8 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                                 if (mudou) {
                                   await repo.salvar(ficha);
                                   setState(() {
-                                    forca += 1;
+                                    forca = ficha.habilidades['forca'] ?? forca;
+                                    pontosDisponiveis = ficha.pontosD;
                                   });
                                 }
                               }
@@ -275,7 +262,8 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                                 if (mudou) {
                                   await repo.salvar(ficha);
                                   setState(() {
-                                    agilidade -= 1;
+                                    agilidade = ficha.habilidades['agilidade'] ?? agilidade;
+                                    pontosDisponiveis = ficha.pontosD;
                                   });
                                 }
                               }
@@ -317,7 +305,8 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                                 if (mudou) {
                                   await repo.salvar(ficha);
                                   setState(() {
-                                    agilidade += 1;
+                                    agilidade = ficha.habilidades['agilidade'] ?? agilidade;
+                                    pontosDisponiveis = ficha.pontosD;
                                   });
                                 }
                               }
@@ -367,7 +356,8 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                                 if (mudou) {
                                   await repo.salvar(ficha);
                                   setState(() {
-                                    destreza -= 1;
+                                    destreza = ficha.habilidades['destreza'] ?? destreza;
+                                    pontosDisponiveis = ficha.pontosD;
                                   });
                                 }
                               }
@@ -409,7 +399,8 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                                 if (mudou) {
                                   await repo.salvar(ficha);
                                   setState(() {
-                                    destreza += 1;
+                                    destreza = ficha.habilidades['destreza'] ?? destreza;
+                                    pontosDisponiveis = ficha.pontosD;
                                   });
                                 }
                               }
@@ -459,7 +450,8 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                                 if (mudou) {
                                   await repo.salvar(ficha);
                                   setState(() {
-                                    luta -= 1;
+                                    luta = ficha.habilidades['luta'] ?? luta;
+                                    pontosDisponiveis = ficha.pontosD;
                                   });
                                 }
                               }
@@ -501,7 +493,8 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                                 if (mudou) {
                                   await repo.salvar(ficha);
                                   setState(() {
-                                    luta += 1;
+                                    luta = ficha.habilidades['luta'] ?? luta;
+                                    pontosDisponiveis = ficha.pontosD;
                                   });
                                 }
                               }
@@ -551,7 +544,8 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                                 if (mudou) {
                                   await repo.salvar(ficha);
                                   setState(() {
-                                    intelecto -= 1;
+                                    intelecto = ficha.habilidades['intelecto'] ?? intelecto;
+                                    pontosDisponiveis = ficha.pontosD;
                                   });
                                 }
                               }
@@ -593,7 +587,8 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                                 if (mudou) {
                                   await repo.salvar(ficha);
                                   setState(() {
-                                    intelecto += 1;
+                                    intelecto = ficha.habilidades['intelecto'] ?? intelecto;
+                                    pontosDisponiveis = ficha.pontosD;
                                   });
                                 }
                               }
@@ -643,7 +638,8 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                                 if (mudou) {
                                   await repo.salvar(ficha);
                                   setState(() {
-                                    prontidao -= 1;
+                                    prontidao = ficha.habilidades['prontidao'] ?? prontidao;
+                                    pontosDisponiveis = ficha.pontosD;
                                   });
                                 }
                               }
@@ -685,7 +681,8 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                                 if (mudou) {
                                   await repo.salvar(ficha);
                                   setState(() {
-                                    prontidao += 1;
+                                    prontidao = ficha.habilidades['prontidao'] ?? prontidao;
+                                    pontosDisponiveis = ficha.pontosD;
                                   });
                                 }
                               }
@@ -735,7 +732,8 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                                 if (mudou) {
                                   await repo.salvar(ficha);
                                   setState(() {
-                                    presenca -= 1;
+                                    presenca = ficha.habilidades['presenca'] ?? presenca;
+                                    pontosDisponiveis = ficha.pontosD;
                                   });
                                 }
                               }
@@ -777,7 +775,8 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                                 if (mudou) {
                                   await repo.salvar(ficha);
                                   setState(() {
-                                    presenca += 1;
+                                    presenca = ficha.habilidades['presenca'] ?? presenca;
+                                    pontosDisponiveis = ficha.pontosD;
                                   });
                                 }
                               }
@@ -827,7 +826,8 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                                 if (mudou) {
                                   await repo.salvar(ficha);
                                   setState(() {
-                                    vigor -= 1;
+                                    vigor = ficha.habilidades['vigor'] ?? vigor;
+                                    pontosDisponiveis = ficha.pontosD;
                                   });
                                 }
                               }
@@ -869,7 +869,8 @@ class _TelaHabilidades extends State<TelaHabilidades>{
                                 if (mudou) {
                                   await repo.salvar(ficha);
                                   setState(() {
-                                    vigor += 1;
+                                    vigor = ficha.habilidades['vigor'] ?? vigor;
+                                    pontosDisponiveis = ficha.pontosD;
                                   });
                                 }
                               }
