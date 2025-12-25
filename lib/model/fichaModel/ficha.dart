@@ -1,10 +1,3 @@
-//import 'package:flutter/material.dart';
-// import 'dart:convert';
-// import 'dart:io';
-// import 'package:path_provider/path_provider.dart';
-
-
-
 class Modificador {
   final String nome;
   final int valor;
@@ -154,10 +147,11 @@ class Poder{
 class Vantagem {
   final String nome;
   final int graduacao;
-
+  bool graduavel ;
   Vantagem({
     required this.nome,
     required this.graduacao,
+    this.graduavel=false
   });
 
 
@@ -165,6 +159,7 @@ class Vantagem {
     return{
       'nome':nome,
       'graduacao':graduacao,
+      'graduavel':graduavel
     };
   }
 
@@ -173,6 +168,7 @@ class Vantagem {
     return Vantagem(
       nome: json['nome'],
       graduacao: json['graduacao'],
+      graduavel: json['graduavel']
     );
   }
 
@@ -182,7 +178,7 @@ class Pericia {
 
   final String nome;
   int? bonus;
-  final int graduacao;
+  int graduacao;
   
 
   Pericia({
@@ -192,6 +188,7 @@ class Pericia {
     
   });
 
+  
 
   Map<String,dynamic> toJson(){
     return {
@@ -212,6 +209,8 @@ class Pericia {
 
   }
 
+
+  
 
 }
 
@@ -301,17 +300,70 @@ bool adicionarHabilidade(String nome, int valor
       
   } 
 
-Ficha adicionarPericia({ required String nome,required int graduacao
-  }){
-    pericias.add(Pericia(nome:nome,graduacao:graduacao));
-    return this;
 
+Pericia? verificarPericia(String nome){
+    for (final p in pericias) {
+      if (p.nome == nome) return p;
+    }
+    return null;
   }
 
-Ficha adicionarVantagem({required String nome, required int graduacao
-}){
-  vantagens.add(Vantagem(nome: nome, graduacao: graduacao));
-  return this;
+//valor é so um paramentro para se basear, se é para aumentar ou diminuir a graduação
+bool adicionarPericia(String nome,int valor){
+  Pericia? existe = verificarPericia(nome);
+  bool validar =  false;
+  
+  //adicionar
+  if(existe==null && valor>0 && pontosD>=1){
+    pericias.add(Pericia(nome: nome, graduacao: 2));
+    pontosD -=1;
+    validar=true;
+  }else if(existe != null && valor>0 && pontosD>=1){
+    existe.graduacao +=2;
+    pontosD-=1;
+    validar=true;
+  }
+
+  //remover
+  if(existe==null && valor<0){
+    return validar;
+  }
+  else if(existe!= null && valor<0){
+    if(existe.graduacao==2){
+      existe.graduacao -=2;
+      pericias.remove(existe);
+      pontosD+=1;
+      validar=true;
+    }
+    else{
+    existe.graduacao -= 2;
+    pontosD +=1;
+    validar=true;
+    }
+  }
+  
+  return validar;
+  }
+
+
+Vantagem? verificarVantagem(String nome){
+    for (final v in vantagens) {
+      if (v.nome == nome) return v;
+    }
+    return null;
+  }
+
+bool adicionarVantagem( String nome, int valor){
+  bool validar=false;
+
+
+
+
+
+
+
+
+  return validar;
 }
 
 Ficha adicionarPoderes({required String nome
