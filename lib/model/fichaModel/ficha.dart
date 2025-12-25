@@ -147,10 +147,11 @@ class Poder{
 class Vantagem {
   final String nome;
   final int graduacao;
-
+  bool graduavel ;
   Vantagem({
     required this.nome,
     required this.graduacao,
+    this.graduavel=false
   });
 
 
@@ -158,6 +159,7 @@ class Vantagem {
     return{
       'nome':nome,
       'graduacao':graduacao,
+      'graduavel':graduavel
     };
   }
 
@@ -166,6 +168,7 @@ class Vantagem {
     return Vantagem(
       nome: json['nome'],
       graduacao: json['graduacao'],
+      graduavel: json['graduavel']
     );
   }
 
@@ -342,10 +345,25 @@ bool adicionarPericia(String nome,int valor){
   return validar;
   }
 
-Ficha adicionarVantagem({required String nome, required int graduacao
-}){
-  vantagens.add(Vantagem(nome: nome, graduacao: graduacao));
-  return this;
+
+Vantagem? verificarVantagem(String nome){
+    for (final v in vantagens) {
+      if (v.nome == nome) return v;
+    }
+    return null;
+  }
+
+bool adicionarVantagem( String nome, int valor){
+  bool validar=false;
+
+
+
+
+
+
+
+
+  return validar;
 }
 
 Ficha adicionarPoderes({required String nome
