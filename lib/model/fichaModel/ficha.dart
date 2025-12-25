@@ -1,10 +1,3 @@
-//import 'package:flutter/material.dart';
-// import 'dart:convert';
-// import 'dart:io';
-// import 'package:path_provider/path_provider.dart';
-
-
-
 class Modificador {
   final String nome;
   final int valor;
@@ -182,7 +175,7 @@ class Pericia {
 
   final String nome;
   int? bonus;
-  final int graduacao;
+  int graduacao;
   
 
   Pericia({
@@ -192,6 +185,7 @@ class Pericia {
     
   });
 
+  
 
   Map<String,dynamic> toJson(){
     return {
@@ -212,6 +206,8 @@ class Pericia {
 
   }
 
+
+  
 
 }
 
@@ -301,11 +297,49 @@ bool adicionarHabilidade(String nome, int valor
       
   } 
 
-Ficha adicionarPericia({ required String nome,required int graduacao
-  }){
-    pericias.add(Pericia(nome:nome,graduacao:graduacao));
-    return this;
 
+Pericia? verificarPericia(String nome){
+    for (final p in pericias) {
+      if (p.nome == nome) return p;
+    }
+    return null;
+  }
+
+//valor é so um paramentro para se basear, se é para aumentar ou diminuir a graduação
+bool adicionarPericia(String nome,int valor){
+  Pericia? existe = verificarPericia(nome);
+  bool validar =  false;
+  
+  //adicionar
+  if(existe==null && valor>0 && pontosD>=1){
+    pericias.add(Pericia(nome: nome, graduacao: 2));
+    pontosD -=1;
+    validar=true;
+  }else if(existe != null && valor>0 && pontosD>=1){
+    existe.graduacao +=2;
+    pontosD-=1;
+    validar=true;
+  }
+
+  //remover
+  if(existe==null && valor<0){
+    return validar;
+  }
+  else if(existe!= null && valor<0){
+    if(existe.graduacao==2){
+      existe.graduacao -=2;
+      pericias.remove(existe);
+      pontosD+=1;
+      validar=true;
+    }
+    else{
+    existe.graduacao -= 2;
+    pontosD +=1;
+    validar=true;
+    }
+  }
+  
+  return validar;
   }
 
 Ficha adicionarVantagem({required String nome, required int graduacao
