@@ -27,12 +27,22 @@ class _TelaPericias extends State<TelaPericias> {
 
     setState(() {
       pericias = {
-        "força": 0,
-        "agilidade": 0,
-        "destreza": 0,
-        "luta": 0,
-        "intelecto": 0,
-        "prontidão": 0,
+        "Acrobacia" : 0, 
+        "Atletismo" : 0,
+        "Combate Dis." : 0,
+        "Combate CaC." : 0,
+        "Enganação" : 0,
+        "Especialidade" : 0,
+        "Furtividade" : 0,
+        "Intimidação" : 0,
+        "Intuição" : 0,
+        "Investigação" : 0,
+        "Percepção" : 0,
+        "Persuasão" : 0,
+        "PrestiDig." : 0, 
+        "Tecnologia" : 0,
+        "Tratamento" : 0,
+        "Veículos" : 0,
       };
 
       if (ficha != null) {
@@ -53,12 +63,14 @@ class _TelaPericias extends State<TelaPericias> {
     if (ficha != null && ficha.adicionarPericia(chave, delta)) {
       await repo.salvar(ficha);
 
-      final novaGraduacao = ficha.pericias
-          .firstWhere((p) => p.nome == chave)
-          .graduacao;
+      final novaGraduacao = ficha.pericias.where((p) => p.nome == chave).map((p) => p.graduacao).firstOrNull ?? 0;
 
       setState(() {
-        pericias[chave] = novaGraduacao;
+        if(ficha.pericias.any((p) => p.nome == chave)){
+          pericias[chave] = novaGraduacao;
+        }else{
+          pericias[chave] = 0;
+        }
         pontosDisponiveis = ficha.pontosD;
       });
     }
@@ -70,9 +82,10 @@ class _TelaPericias extends State<TelaPericias> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+
           Text(
             nome[0].toUpperCase() + nome.substring(1),
-            style: const TextStyle(color: Colors.white, fontSize: 36),
+            style: const TextStyle(color: Colors.white, fontSize: 32),
           ),
           Row(
             children: [
@@ -95,7 +108,7 @@ class _TelaPericias extends State<TelaPericias> {
 
               Text(
                 '$valor',
-                style: const TextStyle(color: Colors.white, fontSize: 36),
+                style: const TextStyle(color: Colors.white, fontSize: 32),
               ),
 
               //Espaçamento
@@ -132,6 +145,7 @@ class _TelaPericias extends State<TelaPericias> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+
                 // Botão de ajuda
                 IconButton(
                   icon: const Icon(Icons.help, color: Colors.white),
@@ -205,6 +219,7 @@ class _TelaPericias extends State<TelaPericias> {
           
           Flexible(
             child: ListView(
+              padding: EdgeInsets.zero,
               children: pericias.entries.map((e) => periciaUI(e.key, e.value)).toList(),
             ),
           ),
@@ -213,7 +228,7 @@ class _TelaPericias extends State<TelaPericias> {
 
           //***Botao Voltar***
           Padding(
-            padding: const EdgeInsets.only(bottom: 30),
+            padding: const EdgeInsets.only(bottom: 30, top: 20),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(100, 50),
