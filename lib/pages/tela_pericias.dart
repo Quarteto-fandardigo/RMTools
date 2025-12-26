@@ -85,7 +85,7 @@ class _TelaPericias extends State<TelaPericias> {
 
           Text(
             nome[0].toUpperCase() + nome.substring(1),
-            style: const TextStyle(color: Colors.white, fontSize: 32),
+            style: const TextStyle(color: Colors.white, fontSize: 30),
           ),
           Row(
             children: [
@@ -108,7 +108,7 @@ class _TelaPericias extends State<TelaPericias> {
 
               Text(
                 '$valor',
-                style: const TextStyle(color: Colors.white, fontSize: 32),
+                style: const TextStyle(color: Colors.white, fontSize: 30),
               ),
 
               //Espaçamento
