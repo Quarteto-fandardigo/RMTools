@@ -184,17 +184,10 @@ class Pericia {
   Pericia({
     required this.nome,
     required this.graduacao,
-    this.bonus,
+    this.bonus = 0,
     
   });
 
-  // void calcularBonus(int habilidade, Pericia pericia){
-  //   int bonus = 0;
-  //   Pericia? existe = verificarPericia(pericia.nome);
-
-
-
-  // }
   
 
 
@@ -243,6 +236,29 @@ class Ficha{
   List<Pericia> pericias = [];
   List<Poder> poderes = [];
   
+  Map<String, String> habilidadePorPericia = {
+  "Acrobacia": "agilidade",
+  "Atletismo": "forca",
+  "Combate Dis.": "destreza",
+  "Combate CaC.": "luta",
+  "Enganação": "presenca",
+  "Especialidade":"presenca",
+  "Furtividade": "agilidade",
+  "Intimidação": "presenca",
+  "Intuição":"prontidao",
+  "Investigação": "intelecto",
+  "Percepção": "prontidao",
+  "Persuasão": "presenca",
+  "PrestiDig.":"destreza",
+  "Tecnologia": "intelecto",
+  "Tratamento": "intelecto",
+  "Veículos": "destreza",
+
+};
+
+
+
+
   //CONSRUTOR DA FICHA NORMAL
    Ficha._(
     this.np,
@@ -282,151 +298,169 @@ class Ficha{
   }
 
 
-// funcao para criar ficha
-Ficha criarFicha({ required int np ,required String nomeJogador ,required String nomePersonagem})  
-  {return Ficha.criar(np: np, nomeJogador: nomeJogador, nomePersonagem: nomePersonagem);}
+  // funcao para criar ficha
+  Ficha criarFicha({ required int np ,required String nomeJogador ,required String nomePersonagem})  
+    {return Ficha.criar(np: np, nomeJogador: nomeJogador, nomePersonagem: nomePersonagem);}
 
-bool adicionarHabilidade(String nome, int valor
-  ){
-      int habilidade= habilidades[nome]!;
-      bool validar=false;
-      
-      if(valor>0 && pontosD>=2 && habilidade<20 ){
-        pontosD -= 2;
-        habilidade += valor;
-        validar=true;
+  bool adicionarHabilidade(String nome, int valor
+    ){
+        int habilidade= habilidades[nome]!;
+        bool validar=false;
+        
+        if(valor>0 && pontosD>=2 && habilidade<20 ){
+          pontosD -= 2;
+          habilidade += valor;
+          validar=true;
+        }
+        else if (valor<0 && habilidade>-5){
+          pontosD += 2;
+          habilidade +=valor;
+          validar=true;
+        }
+        
+        //caso nao mude nada, so fica igual
+        habilidades[nome]=habilidade;
+        
+        recalcularBonusPericias();
+        return validar;
+        
+    } 
+
+
+
+//PERICIAS
+  Pericia? verificarPericia(String nome){
+      for (final p in pericias) {
+        if (p.nome == nome) return p;
       }
-      else if (valor<0 && habilidade>-5){
-        pontosD += 2;
-        habilidade +=valor;
-        validar=true;
-      }
-      
-      //caso nao mude nada, so fica igual
-      habilidades[nome]=habilidade;
-      return validar;
-      
-  } 
-
-
-Pericia? verificarPericia(String nome){
-    for (final p in pericias) {
-      if (p.nome == nome) return p;
+      return null;
     }
-    return null;
-  }
-
-//valor é so um paramentro para se basear, se é para aumentar ou diminuir a graduação
-bool adicionarPericia(String nome,int valor){
-  Pericia? existe = verificarPericia(nome);
-  bool validar =  false;
   
-  //adicionar
-  if(existe==null && valor>0 && pontosD>=1){
-    pericias.add(Pericia(nome: nome, graduacao: 2));
-    pontosD -=1;
-    validar=true;
-  }else if(existe != null && valor>0 && pontosD>=1){
-    existe.graduacao +=2;
-    pontosD-=1;
-    validar=true;
+  void recalcularBonusPericias() {
+    for (final p in pericias) {
+      final habilidadeBase = habilidadePorPericia[p.nome];
+      if (habilidadeBase == null) continue;
+
+      final valorHabilidade = habilidades[habilidadeBase];
+      if (valorHabilidade == null) continue;
+
+      p.bonus = p.graduacao + valorHabilidade;
+    }
   }
 
-  //remover
-  if(existe==null && valor<0){
-    return validar;
-  }
-  else if(existe!= null && valor<0){
-    if(existe.graduacao==2){
-      existe.graduacao -=2;
-      pericias.remove(existe);
-      pontosD+=1;
+  bool adicionarPericia(String nome,int valor){
+    Pericia? existe = verificarPericia(nome);
+    bool validar =  false;
+    
+    //adicionar
+    if(existe==null && valor>0 && pontosD>=1){
+      pericias.add(Pericia(nome: nome, graduacao: 2));
+      pontosD -=1;
+      validar=true;
+    }else if(existe != null && valor>0 && pontosD>=1){
+      existe.graduacao +=2;
+      pontosD-=1;
       validar=true;
     }
-    else{
-    existe.graduacao -= 2;
-    pontosD +=1;
-    validar=true;
+
+    //remover
+    if(existe==null && valor<0){
+      return validar;
     }
-  }
-  
-  return validar;
-  }
-
-
-Vantagem? verificarVantagem(String nome){
-    for (final v in vantagens) {
-      if (v.nome == nome) return v;
+    else if(existe!= null && valor<0){
+      if(existe.graduacao==2){
+        existe.graduacao -=2;
+        pericias.remove(existe);
+        pontosD+=1;
+        validar=true;
+      }
+      else{
+      existe.graduacao -= 2;
+      pontosD +=1;
+      validar=true;
+      }
     }
-    return null;
+    recalcularBonusPericias();
+    return validar;
+    }
+
+
+
+
+
+//VANTAGENS
+  Vantagem? verificarVantagem(String nome){
+      for (final v in vantagens) {
+        if (v.nome == nome) return v;
+      }
+      return null;
+    }
+  bool adicionarVantagem( String nome, int valor){
+    bool validar=false;
+
+
+
+
+
+
+
+
+    return validar;
   }
 
-bool adicionarVantagem( String nome, int valor){
-  bool validar=false;
 
+  //PODERES
+  Ficha adicionarPoderes({required String nome
+  }){
 
+    poderes.add(Poder(nomePoder: nome));
+    return this;
 
-
-
-
-
-
-  return validar;
-}
-
-Ficha adicionarPoderes({required String nome
-}){
-
-  poderes.add(Poder(nomePoder: nome));
-  return this;
-
-}
-
-
-Map<String, dynamic> toJson() {
-  return {
-    'np': np,
-    'nomeJogador': nomeJogador,
-    'nomePersonagem': nomePersonagem,
-    'habilidades': habilidades,
-    'vantagens': vantagens.map((v) => v.toJson()).toList(),
-    'pericias': pericias.map((p) => p.toJson()).toList(),
-    'poderes': poderes.map((p) => p.toJson()).toList(),
-    'pontosBase': pontosBase,
-    'pontosD': pontosD,
-  };
-}
-
-//CONSTRUTOR PARA O JSON
-Ficha._fromJson(
-  this.np,
-  this.nomeJogador,
-  this.nomePersonagem,
-  this.habilidades,
-  this.vantagens,
-  this.pericias,
-  this.poderes,
-  this.pontosD,
-) : pontosBase = np * 15;
-
-factory Ficha.fromJson(Map<String, dynamic> json) {
-  return Ficha._fromJson(
-    (json['np'] as num).toInt(),
-    json['nomeJogador'] as String,
-    json['nomePersonagem'] as String,
-    Map<String, int>.from(json['habilidades']),
-    (json['vantagens'] as List<dynamic>)
-        .map((v) => Vantagem.fromJson(v))
-        .toList(),
-    (json['pericias'] as List<dynamic>)
-        .map((p) => Pericia.fromJson(p))
-        .toList(),
-    (json['poderes'] as List<dynamic>)
-        .map((p) => Poder.fromJson(p))
-        .toList(),
-    (json['pontosD'] as num).toInt(),
-    );
   }
+  Map<String, dynamic> toJson() {
+    return {
+      'np': np,
+      'nomeJogador': nomeJogador,
+      'nomePersonagem': nomePersonagem,
+      'habilidades': habilidades,
+      'vantagens': vantagens.map((v) => v.toJson()).toList(),
+      'pericias': pericias.map((p) => p.toJson()).toList(),
+      'poderes': poderes.map((p) => p.toJson()).toList(),
+      'pontosBase': pontosBase,
+      'pontosD': pontosD,
+    };
+  }
+
+  //CONSTRUTOR PARA O JSON
+  Ficha._fromJson(
+    this.np,
+    this.nomeJogador,
+    this.nomePersonagem,
+    this.habilidades,
+    this.vantagens,
+    this.pericias,
+    this.poderes,
+    this.pontosD,
+  ) : pontosBase = np * 15;
+
+  factory Ficha.fromJson(Map<String, dynamic> json) {
+    return Ficha._fromJson(
+      (json['np'] as num).toInt(),
+      json['nomeJogador'] as String,
+      json['nomePersonagem'] as String,
+      Map<String, int>.from(json['habilidades']),
+      (json['vantagens'] as List<dynamic>)
+          .map((v) => Vantagem.fromJson(v))
+          .toList(),
+      (json['pericias'] as List<dynamic>)
+          .map((p) => Pericia.fromJson(p))
+          .toList(),
+      (json['poderes'] as List<dynamic>)
+          .map((p) => Poder.fromJson(p))
+          .toList(),
+      (json['pontosD'] as num).toInt(),
+      );
+    }
 
 }
 
