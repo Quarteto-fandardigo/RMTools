@@ -111,12 +111,14 @@ class _TelaHabilidades extends State<TelaHabilidades>{
       backgroundColor: const Color.fromARGB(255, 21, 22, 34),
       body: Column(
         children: [
+
           //***Botao de duvida e pontos***
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                
                 // Botão de ajuda
                 IconButton(
                   icon: const Icon(Icons.help, color: Colors.white),
@@ -280,7 +282,6 @@ class _TelaHabilidades extends State<TelaHabilidades>{
               ),
             ),
           ),
-
         ],
       ),
     );

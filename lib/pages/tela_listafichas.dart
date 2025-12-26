@@ -69,6 +69,7 @@ class _TelaFichaState extends State<TelaListaFicha> {
                 },
 
                 child: Container(
+                  padding: EdgeInsets.all(6),//<--- isso faz com que os itens do listview não sumam/apareçam no limite do container
                   width: 300,
                   height: 520,
                   decoration: BoxDecoration(
@@ -79,9 +80,8 @@ class _TelaFichaState extends State<TelaListaFicha> {
                   // listview de fato
                   child: Column(
                     children: [
-                      // lista
-                      SizedBox(
-                        height: 420,
+                      // lista(Expanded faz a lista ocupar o espaço todo do container)
+                      Expanded(
                         child: ListView.builder(
                           padding: EdgeInsets.zero,
                           itemCount: fichas.length,
@@ -119,8 +119,6 @@ class _TelaFichaState extends State<TelaListaFicha> {
                         ),
                       ),
 
-                      //***Espaçamento
-                      Spacer(),
 
                       //***Botões***
                       if (selecionado != null)
@@ -135,7 +133,7 @@ class _TelaFichaState extends State<TelaListaFicha> {
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.redAccent,
-                                  minimumSize: const Size(140, 40),
+                                  minimumSize: const Size(135, 40),
                                   foregroundColor: Colors.white,
                                   textStyle: TextStyle(
                                     fontSize: 25
@@ -212,7 +210,7 @@ class _TelaFichaState extends State<TelaListaFicha> {
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.blueAccent,
-                                  minimumSize: const Size(140, 40),
+                                  minimumSize: const Size(135, 40),
                                   foregroundColor: Colors.white,
                                   textStyle: TextStyle(
                                     fontSize: 25
