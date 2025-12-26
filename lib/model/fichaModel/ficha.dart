@@ -55,10 +55,10 @@ class Componente{
       'efeito':efeito,
       'graduacao':graduacao,
       'custoBase':custoBase,
-       'extras': extras.map(
+      'extras': extras.map(
       (key, value) => MapEntry(key, value.toJson()),
     ),
-    'falhas': falhas.map(
+      'falhas': falhas.map(
       (key, value) => MapEntry(key, value.toJson()),
     ),
     };
@@ -188,7 +188,15 @@ class Pericia {
     
   });
 
+  // void calcularBonus(int habilidade, Pericia pericia){
+  //   int bonus = 0;
+  //   Pericia? existe = verificarPericia(pericia.nome);
+
+
+
+  // }
   
+
 
   Map<String,dynamic> toJson(){
     return {
