@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rmtools/model/fichaModel/armazenamento_ficha.dart';
+import 'package:rmtools/pages/tela_personagem_editar.dart';
 
 class TelaPericias extends StatefulWidget {
   final String nomePersonagem;
@@ -25,13 +26,23 @@ class _TelaPericias extends State<TelaPericias> {
     final ficha = await repo.carregar(widget.nomePersonagem);
 
     setState(() {
+      pericias = {
+        "força": 0,
+        "agilidade": 0,
+        "destreza": 0,
+        "luta": 0,
+        "intelecto": 0,
+        "prontidão": 0,
+      };
+
       if (ficha != null) {
-        pericias = {
-          for (var p in ficha.pericias) p.nome: p.graduacao,
-        };
+        for (var p in ficha.pericias) {
+          pericias[p.nome] = p.graduacao;
+        }
         pontosDisponiveis = ficha.pontosD;
       }
-      carregando = false; // ← SEMPRE
+
+      carregando = false;
     });
   }
 
@@ -53,7 +64,7 @@ class _TelaPericias extends State<TelaPericias> {
     }
   }
 
-  Widget _linhaPericia(String nome, int valor) {
+  Widget periciaUI(String nome, int valor) {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Row(
@@ -65,21 +76,40 @@ class _TelaPericias extends State<TelaPericias> {
           ),
           Row(
             children: [
+
+              //Botão remover
               IconButton(
                 icon: const Icon(Icons.remove, color: Colors.white),
                 iconSize: 30,
+                style: IconButton.styleFrom(
+                  side: const BorderSide(color: Colors.white24, width: 1),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                ),
                 onPressed: () => _alterar(nome, -1),
               ),
+
+
+              //Espaçamento
               const SizedBox(width: 15),
+
+
               Text(
                 '$valor',
                 style: const TextStyle(color: Colors.white, fontSize: 36),
               ),
+
+              //Espaçamento
               const SizedBox(width: 15),
+
+              //Botão adicionar
               IconButton(
                 icon: const Icon(Icons.add, color: Colors.white),
                 iconSize: 30,
-                onPressed: () => _alterar(nome, 1),
+                style: IconButton.styleFrom(
+                  side: const BorderSide(color: Colors.white24, width: 1),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                ),
+                onPressed: () => _alterar(nome, 1), 
               ),
             ],
           ),
@@ -92,6 +122,121 @@ class _TelaPericias extends State<TelaPericias> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 21, 22, 34),
+      
+      //Widgets pericias
+      body: carregando? 
+      const Center(child: CircularProgressIndicator()): Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Botão de ajuda
+                IconButton(
+                  icon: const Icon(Icons.help, color: Colors.white),
+                  iconSize: 35,
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        backgroundColor: Color.fromARGB(255, 21, 22, 34),
+                        title: Text("Ajuda", style: TextStyle(color: Colors.white)),
+                        content: SizedBox(
+                          height: 350,
+                          width: 300,
+                          child: SingleChildScrollView(
+                            child: Text(
+                              "Habilidades são como o sistema chama os atributos, ex: força. "
+                              "Cada graduação em uma habilidade custa 2 pontos de poder, retirar concede 2 pontos,"
+                              " contudo tem um limite de quanto você consegue retirar de graduações, o limite é até -5 de graduação"
+                              "Segue a escala (material oficial):\n\n"
+                              "-5 — Completamente inepto\n"
+                              "-4 — Criança muito nova (<6 anos)\n"
+                              "-3 — Criança nova (7-9)\n"
+                              "-2 — Criança (10-13), idoso ou debilitado\n"
+                              "-1 — Abaixo da média; adolescente\n"
+                              "0 — Adulto médio\n"
+                              "1 — Acima da média\n"
+                              "2 — Bem acima da média\n"
+                              "3 — Talentoso\n"
+                              "4 — Altamente talentoso\n"
+                              "5 — O melhor de um país\n"
+                              "6 — Um dos melhores do mundo\n"
+                              "7 — Ápice humano\n"
+                              "8 — Super-humano fraco\n"
+                              "10 — Super-humano moderado\n"
+                              "13 — Super-humano poderoso\n"
+                              "15 — Super-humano muito poderoso\n"
+                              "20 — Cósmico",
+                              style: TextStyle(fontSize: 16, color: Colors.white),
+                            ),
+                          ),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              "Fechar",
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 22,
+                              )
+                            )
+                          ),
+                        ]
+                      ),
+                    );
+                  },
+                ),
+
+
+                // Pontos disponíveis
+                Text(
+                  "Pontos disponíveis: $pontosDisponiveis",
+                  style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
+                ),
+              ],
+            ),
+          ),
+          
+          
+          Flexible(
+            child: ListView(
+              children: pericias.entries.map((e) => periciaUI(e.key, e.value)).toList(),
+            ),
+          ),
+          
+
+
+          //***Botao Voltar***
+          Padding(
+            padding: const EdgeInsets.only(bottom: 30),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size(100, 50),
+              ),
+              onPressed: () {
+                Navigator.pop(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TelaPersonagemEditar(nomePersonagem: widget.nomePersonagem),
+                  ),
+                );
+              },
+              child: const Text(
+                "Voltar",
+                style: TextStyle(fontSize: 25),
+              ),
+            ),
+          )
+        ],
+      ),
+
+      
+
     );
   }
 }

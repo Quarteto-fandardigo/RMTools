@@ -45,14 +45,13 @@ class FichaRepository {
 
   Future<Ficha?> carregar(String nomePersonagem) async {
     final file = await _file(nomePersonagem);
-
     if (!await file.exists()) return null;
 
     final jsonString = await file.readAsString();
-    final jsonMap = jsonDecode(jsonString);
+    final jsonMap = jsonDecode(jsonString) as Map<String, dynamic>;
 
     return Ficha.fromJson(jsonMap);
-  }
+  } 
 
 
   Future<String?> carregarCampo(String campo,String nomePersonagem) async {
