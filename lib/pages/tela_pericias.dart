@@ -218,9 +218,14 @@ class _TelaPericias extends State<TelaPericias> {
           
           
           Flexible(
-            child: ListView(
+            child: ListView.separated(
               padding: EdgeInsets.zero,
-              children: pericias.entries.map((e) => periciaUI(e.key, e.value)).toList(),
+              separatorBuilder: (context, index) => const Divider(color: Colors.white10),
+              itemCount: pericias.length,
+              itemBuilder: (_, i) {
+                final e = pericias.entries.elementAt(i);
+                return periciaUI(e.key, e.value);
+              },
             ),
           ),
           

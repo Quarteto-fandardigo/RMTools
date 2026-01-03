@@ -7,9 +7,7 @@ import 'package:rmtools/pages/tela_principal.dart';
 //fontSize(textos pequenos): 25
 //fontSize(titulos): 50
 //espaçamento: 40
-//
-//
-//
+
 
 class MyApp extends StatelessWidget{
   const MyApp({super.key});
