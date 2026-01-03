@@ -146,7 +146,7 @@ class Poder{
 
 class Vantagem {
   final String nome;
-  final int graduacao;
+  int graduacao;
   bool graduavel ;
   Vantagem({
     required this.nome,
@@ -302,8 +302,7 @@ class Ficha{
   Ficha criarFicha({ required int np ,required String nomeJogador ,required String nomePersonagem})  
     {return Ficha.criar(np: np, nomeJogador: nomeJogador, nomePersonagem: nomePersonagem);}
 
-  bool adicionarHabilidade(String nome, int valor
-    ){
+  bool adicionarHabilidade(String nome, int valor){
         int habilidade= habilidades[nome]!;
         bool validar=false;
         
@@ -397,6 +396,35 @@ class Ficha{
     }
   bool adicionarVantagem( String nome, int valor){
     bool validar=false;
+    Vantagem? existir = verificarVantagem(nome);
+    
+    //adicionar
+    if(existir==null && pontosD>=1 && valor>0){
+      vantagens.add(Vantagem(nome: nome, graduacao: 1));
+      pontosD-=1;
+      validar=true;
+    }else if(existir!= null && pontosD>=1 && valor>0){
+      existir.graduacao+=1;
+      pontosD-=1;
+      validar=true;
+    }
+    
+    //remover
+    if(existir==null && valor<0){
+      return validar;
+    }else if(existir!=null && valor<0 ){
+      if(existir.graduacao==1){
+      existir.graduacao-=1;
+      pontosD+=1;
+      vantagens.remove(existir);
+      validar=true;
+      }
+      else{
+      existir.graduacao-=1;
+      pontosD+=1;
+      validar=true;}
+    
+    }
 
 
 
