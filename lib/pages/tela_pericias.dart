@@ -249,9 +249,6 @@ class _TelaPericias extends State<TelaPericias> {
           )
         ],
       ),
-
-      
-
     );
   }
 }
