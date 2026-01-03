@@ -1,171 +1,333 @@
 import 'package:flutter/material.dart';
 import 'package:rmtools/model/fichaModel/armazenamento_ficha.dart';
-
+import 'package:rmtools/pages/tela_personagem_editar.dart';
 
 class TelaVantagens extends StatefulWidget {
   final String nomePersonagem;
   const TelaVantagens({super.key, required this.nomePersonagem});
 
   @override
-  State<TelaVantagens> createState() => _TelaVantagens();
+  State<TelaVantagens> createState() => _TelaVantagensState();
 }
 
-//define se é botao ou checkbox
-enum TipoVantagem {botoes, checkbox}
+enum TipoVantagem { botoes, checkbox }
 
-class _TelaVantagens extends State<TelaVantagens> {
+class _TelaVantagensState extends State<TelaVantagens> {
   Map<String, int> vantagens = {};
   int pontosDisponiveis = 0;
+  bool carregando = true;
 
+
+  final Map<String, TipoVantagem> tipoPorItem = {
+    "Artífice": TipoVantagem.botoes,
+    "Assustar": TipoVantagem.checkbox,
+    "Atraente": TipoVantagem.checkbox,
+    "Bem Informado": TipoVantagem.checkbox,
+    "Bem Relacionado": TipoVantagem.checkbox,
+    "Contatos": TipoVantagem.checkbox,
+    "Empatia com Animais": TipoVantagem.checkbox,
+    "Esconder-se à Plena Vista": TipoVantagem.checkbox,
+    "Fascinar": TipoVantagem.checkbox,
+    "Faz Tudo": TipoVantagem.checkbox,
+    "Ferramentas Aprimoradas": TipoVantagem.checkbox,
+    "Finta Ágil": TipoVantagem.checkbox,
+    "Idiomas": TipoVantagem.botoes,
+    "Inimigo Favorito": TipoVantagem.botoes,
+    "Inventor": TipoVantagem.checkbox,
+    "Maestria em Perícia": TipoVantagem.botoes,
+    "Rastrear": TipoVantagem.checkbox,
+    "Ritualista": TipoVantagem.checkbox,
+    "Tontear": TipoVantagem.checkbox,
+    "Zombar": TipoVantagem.checkbox,
+    "Esforço Supremo": TipoVantagem.botoes,
+    "Inspirar": TipoVantagem.checkbox,
+    "Liderança": TipoVantagem.checkbox,
+    "Sorte de Principiante": TipoVantagem.checkbox,
+    "Sorte": TipoVantagem.botoes,
+    "Tomar a Iniciativa": TipoVantagem.checkbox,
+    "Avaliação": TipoVantagem.checkbox,
+    "Benefício": TipoVantagem.checkbox,
+    "Capanga": TipoVantagem.checkbox,
+    "De Pé": TipoVantagem.checkbox,
+    "Destemido": TipoVantagem.checkbox,
+    "Duro de Matar": TipoVantagem.checkbox,
+    "Equipamento": TipoVantagem.botoes,
+    "Esforço Extraordinário": TipoVantagem.checkbox,
+    "Interpor-se": TipoVantagem.checkbox,
+    "Memória Eidética": TipoVantagem.checkbox,
+    "Parceiro": TipoVantagem.checkbox,
+    "Segunda Chance": TipoVantagem.checkbox,
+    "Tolerância Maior": TipoVantagem.checkbox,
+    "Trabalho em Equipe": TipoVantagem.checkbox,
+    "Transe": TipoVantagem.checkbox,
+    "Ação em Movimento": TipoVantagem.botoes,
+    "Agarrar Aprimorado": TipoVantagem.checkbox,
+    "Agarrar Preciso": TipoVantagem.checkbox,
+    "Agarrar Rápido": TipoVantagem.checkbox,
+    "Ambiente Favorito": TipoVantagem.checkbox,
+    "Arma Improvisada": TipoVantagem.checkbox,
+    "Armação": TipoVantagem.checkbox,
+    "Ataque à Distância": TipoVantagem.botoes,
+    "Ataque Acurado": TipoVantagem.checkbox,
+    "Ataque Corpo-a-Corpo": TipoVantagem.botoes,
+    "Ataque Defensivo": TipoVantagem.checkbox,
+    "Ataque Dominó": TipoVantagem.checkbox,
+    "Ataque Imprudente": TipoVantagem.checkbox,
+    "Ataque Poderoso": TipoVantagem.botoes,
+    "Ataque Preciso": TipoVantagem.checkbox,
+    "Crítico Aprimorado": TipoVantagem.botoes,
+    "Defesa Aprimorada": TipoVantagem.botoes,
+    "Derrubar Aprimorado": TipoVantagem.botoes,
+    "Desarmar Aprimorado": TipoVantagem.botoes,
+    "Esquiva Fabulosa": TipoVantagem.checkbox,
+    "Estrangular": TipoVantagem.checkbox,
+    "Evasão": TipoVantagem.checkbox,
+    "Imobilizar Aprimorado": TipoVantagem.checkbox,
+    "Iniciativa Aprimorada": TipoVantagem.botoes,
+    "Luta no Chão": TipoVantagem.checkbox,
+    "Maestria em Arremesso": TipoVantagem.botoes,
+    "Mira Aprimorada": TipoVantagem.botoes,
+    "Prender Arma": TipoVantagem.checkbox,
+    "Quebrar Aprimorado": TipoVantagem.botoes,
+    "Quebrar Arma": TipoVantagem.checkbox,
+    "Redirecionar": TipoVantagem.checkbox,
+    "Rolamento Defensivo": TipoVantagem.checkbox,
+    "Saque Rápido": TipoVantagem.botoes
+  };
 
   @override
   void initState() {
     super.initState();
-    vantagens = {
-      "Artífice": 0,
-      "Assustar": 0,
-      "Atraente": 0,
-      "Bem Informado": 0,
-      "Bem Relacionado": 0,
-      "Contatos": 0,
-      "Empatia com Animais": 0,
-      "Esconder-se à Plena Vista": 0,
-      "Fascinar": 0,
-      "Faz Tudo": 0,
-      "Ferramentas Aprimoradas": 0,
-      "Finta Ágil": 0,
-      "Idiomas": 0,
-      "Inimigo Favorito": 0,
-      "Inventor": 0,
-      "Maestria em Perícia": 0,
-      "Rastrear": 0,
-      "Ritualista": 0,
-      "Tontear": 0,
-      "Zombar": 0,
-      "Esforço Supremo": 0,
-      "Inspirar": 0,
-      "Liderança": 0,
-      "Sorte de Principiante": 0,
-      "Sorte": 0,
-      "Tomar a Iniciativa": 0,
-      "Avaliação": 0,
-      "Benefício": 0,
-      "Capanga": 0,
-      "De Pé": 0,
-      "Destemido": 0,
-      "Duro de Matar": 0,
-      "Equipamento": 0,
-      "Esforço Extraordinário": 0,
-      "Interpor-se": 0,
-      "Memória Eidética": 0,
-      "Parceiro": 0,
-      "Segunda Chance": 0,
-      "Tolerância Maior": 0,
-      "Trabalho em Equipe": 0,
-      "Transe": 0,
-      "Ação em Movimento": 0,
-      "Agarrar Aprimorado": 0,
-      "Agarrar Preciso": 0,
-      "Agarrar Rápido": 0,
-      "Ambiente Favorito": 0,
-      "Arma Improvisada": 0,
-      "Armação": 0,
-      "Ataque à Distância": 0,
-      "Ataque Acurado": 0,
-      "Ataque Corpo-a-Corpo": 0,
-      "Ataque Defensivo": 0,
-      "Ataque Dominó": 0,
-      "Ataque Imprudente": 0,
-      "Ataque Poderoso": 0,
-      "Ataque Preciso": 0,
-      "Crítico Aprimorado": 0,
-      "Defesa Aprimorada": 0,
-      "Derrubar Aprimorado": 0,
-      "Desarmar Aprimorado": 0,
-      "Esquiva Fabulosa": 0,
-      "Estrangular": 0,
-      "Evasão": 0,
-      "Imobilizar Aprimorado": 0,
-      "Iniciativa Aprimorada": 0,
-      "Luta no Chão": 0,
-      "Maestria em Arremesso": 0,
-      "Mira Aprimorada": 0,
-      "Prender Arma": 0,
-      "Quebrar Aprimorado": 0,
-      "Quebrar Arma": 0,
-      "Redirecionar": 0,
-      "Rolamento Defensivo": 0,
-      "Saque Rápido": 0
-    };
+    _inicializarDados();
   }
 
+  Future<void> _inicializarDados() async {
+    final repo = FichaRepository();
+    final ficha = await repo.carregar(widget.nomePersonagem);
 
-  Future<void> _alterar(String chave, int delta) async {
-  final repo = FichaRepository();
-  final ficha = await repo.carregar(widget.nomePersonagem);
-  if (ficha == null) return;
+    if (ficha != null) {
+      Map<String, int> mapaCarregado = {};
+      // Inicializa todas as chaves do tipoPorItem com valor 0 ou valor da ficha
+      for (var nome in tipoPorItem.keys) {
+        final vFicha = ficha.vantagens.where((v) => v.nome == nome).firstOrNull;
+        mapaCarregado[nome] = vFicha?.graduacao ?? 0;
+      }
 
-  final ok = ficha.adicionarVantagem(chave, delta);
-  if (!ok) return;
-
-  await repo.salvar(ficha);
-
-  final novoValor = ficha.vantagens
-      .where((v) => v.nome == chave)
-      .map((v) => v.graduacao)
-      .firstOrNull ?? 0;
-
-  setState(() {
-    vantagens[chave] = novoValor;
-    pontosDisponiveis = ficha.pontosD;
-  });
-}
-
-Widget vantagemUI(String nome, int valor, TipoVantagem tipo) {
-  
-  //***CheckBox */
-  if (tipo == TipoVantagem.checkbox) {
-    return CheckboxListTile(
-      title: Text(nome, style: TextStyle(color: Colors.white, fontSize: 30)),
-      value: vantagens[nome] == 1,
-      onChanged: (v) {
-        setState(() {
-          vantagens[nome] = v == true ? 1 : 0; // atualiza local
-        });
-        _alterar(nome, v == true ? 1 : -1); // salva no model depois
-      },
-      activeColor: Colors.green,
-    );
+      setState(() {
+        vantagens = mapaCarregado;
+        pontosDisponiveis = ficha.pontosD;
+        carregando = false;
+      });
+    }
   }
 
+Future<void> _alterar(String chave, int delta) async {
+    final repo = FichaRepository();
+    final ficha = await repo.carregar(widget.nomePersonagem);
+    if (ficha == null) return;
 
-  //***Botões */
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 8),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(nome, style: TextStyle(color: Colors.white, fontSize: 30)),
-        Row(children: [
-          IconButton(icon: Icon(Icons.remove, color: Colors.white), onPressed: ()=>_alterar(nome, -1)),
-          Text("${vantagens[nome] ?? 0}", style: TextStyle(color: Colors.white, fontSize: 22)),
-          IconButton(icon: Icon(Icons.add, color: Colors.white), onPressed: ()=>_alterar(nome, 1)),
-          ])
+    final ok = ficha.adicionarVantagem(chave, delta);
+    if (!ok) return;
+
+    await repo.salvar(ficha);
+
+    // BUSCA SEGURA: Se não encontrar, a graduação é 0
+    final vantagemModificada = ficha.vantagens.where((v) => v.nome == chave).firstOrNull;
+    final novaGraduacao = vantagemModificada?.graduacao ?? 0;
+
+    setState(() {
+      vantagens[chave] = novaGraduacao;
+      pontosDisponiveis = ficha.pontosD;
+    });
+  }
+
+  Widget vantagemUI(String nome, int valor) {
+    TipoVantagem tipo = tipoPorItem[nome] ?? TipoVantagem.checkbox;
+
+    if (tipo == TipoVantagem.checkbox) {
+      return CheckboxListTile(
+        // Removi o Divider usando o construtor do ListView abaixo, 
+        // mas mantive o estilo do seu texto
+        title: Text(nome, style: const TextStyle(color: Colors.white, fontSize: 26)),
+        value: valor > 0, 
+        onChanged: (bool? selecionado) {
+          int delta = (selecionado == true) ? 1 : -1;
+          _alterar(nome, delta);
+        },
+        activeColor: Colors.green,
+        checkColor: Colors.white,
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(child: Text(nome, style: const TextStyle(color: Colors.white, fontSize: 26))),
+          Row(
+            children: [
+              // Botão Menos (Corrigido para -1)
+              IconButton(
+                icon: const Icon(Icons.remove, color: Colors.white),
+                iconSize: 20,
+                style: IconButton.styleFrom(
+                  side: const BorderSide(color: Colors.white24, width: 1),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                ),
+                onPressed: valor > 0 ? () => _alterar(nome, -1) : null, 
+              ),
+
+              //Espaçamento
+              const SizedBox(width: 15),
+
+              Text(
+                "$valor", 
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold)
+              ),
+
+              //Espaçamento
+              const SizedBox(width: 15),
+
+              // Botão Mais
+              IconButton(
+                icon: const Icon(Icons.add, color: Colors.white),
+                iconSize: 20,
+                style: IconButton.styleFrom(
+                  side: const BorderSide(color: Colors.white24, width: 1),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                ),
+                onPressed: () => _alterar(nome, 1), 
+              ),
+            ],
+          )
         ],
       ),
     );
   }
 
   @override
-  Widget build(BuildContext context){
-
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 21, 22, 34),
-      body: ListView(
-        padding: EdgeInsets.all(16),
-        children: vantagens.entries.map((e) => vantagemUI(e.key, e.value, TipoVantagem.checkbox)).toList(),
-      ),
-    );
+      
+      //Widgets principais
+      body: carregando? 
+      const Center(child: CircularProgressIndicator()): Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
 
+                // Botão de ajuda
+                IconButton(
+                  icon: const Icon(Icons.help, color: Colors.white),
+                  iconSize: 35,
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        backgroundColor: Color.fromARGB(255, 21, 22, 34),
+                        title: Text("Ajuda", style: TextStyle(color: Colors.white)),
+                        content: SizedBox(
+                          height: 350,
+                          width: 300,
+                          child: SingleChildScrollView(
+                            child: Text(
+                              "Vantagens custam 1 ponto por graduação. Algumas são únicas (Checkbox) e outras graduáveis (Botões).\n\n"
+                              "Segue a escala (material oficial):\n\n"
+                              "-5 — Completamente inepto\n"
+                              "-4 — Criança muito nova (<6 anos)\n"
+                              "-3 — Criança nova (7-9)\n"
+                              "-2 — Criança (10-13), idoso ou debilitado\n"
+                              "-1 — Abaixo da média; adolescente\n"
+                              "0 — Adulto médio\n"
+                              "1 — Acima da média\n"
+                              "2 — Bem acima da média\n"
+                              "3 — Talentoso\n"
+                              "4 — Altamente talentoso\n"
+                              "5 — O melhor de um país\n"
+                              "6 — Um dos melhores do mundo\n"
+                              "7 — Ápice humano\n"
+                              "8 — Super-humano fraco\n"
+                              "10 — Super-humano moderado\n"
+                              "13 — Super-humano poderoso\n"
+                              "15 — Super-humano muito poderoso\n"
+                              "20 — Cósmico",
+                              style: TextStyle(fontSize: 16, color: Colors.white),
+                            ),
+                          ),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              "Fechar",
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 22,
+                              )
+                            )
+                          ),
+                        ]
+                      ),
+                    );
+                  },
+                ),
+
+
+                // Pontos disponíveis
+                Text(
+                  "Pontos disponíveis: $pontosDisponiveis",
+                  style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
+                ),
+              ],
+            ),
+          ),
+
+          Flexible(
+            child: ListView.separated(
+              padding: const EdgeInsets.all(16),
+              itemCount: tipoPorItem.keys.length,
+              separatorBuilder: (context, index) => const Divider(color: Colors.white10),
+              itemBuilder: (context, index) {
+                String nome = tipoPorItem.keys.elementAt(index);
+                int valor = vantagens[nome] ?? 0;
+                return vantagemUI(nome, valor);
+              },
+            ), 
+          ),
+          
+
+
+          //***Botão Voltar */
+          Padding(
+            padding: const EdgeInsets.only(bottom: 30, top: 20),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size(100, 50),
+              ),
+              onPressed: () {
+                Navigator.pop(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TelaPersonagemEditar(nomePersonagem: widget.nomePersonagem),
+                  ),
+                );
+              },
+              child: const Text(
+                "Voltar",
+                style: TextStyle(fontSize: 25),
+              ),
+            ),
+          )
+        ]
+      )
+    );
   }
 }
