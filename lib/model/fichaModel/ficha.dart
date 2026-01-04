@@ -394,6 +394,41 @@ class Ficha{
       }
       return null;
     }
+  
+  int limiteVantagem(String nome){
+    int semLimite = 99;
+    switch (nome){
+
+      case 'Ataque Preciso':
+        return 4;
+
+      case 'Atraente':
+        return 2;
+
+      case 'Evasão':
+        return 0;
+      
+      case 'Idiomas':
+        return 12;
+      
+      case 'Sorte':
+        return np~/2;
+      
+      case 'Tontear':
+        return 2;
+      
+      
+      default: 
+        return  semLimite;
+
+
+    }
+
+    
+
+    
+  }
+
   bool adicionarVantagem( String nome, int valor){
     bool validar=false;
     Vantagem? existir = verificarVantagem(nome);
@@ -404,10 +439,17 @@ class Ficha{
       pontosD-=1;
       validar=true;
     }else if(existir!= null && pontosD>=1 && valor>0){
-      existir.graduacao+=1;
-      pontosD-=1;
-      validar=true;
+      int limite=limiteVantagem(existir.nome);
+      if (existir.graduacao+1<=limite){
+        existir.graduacao+=1;
+        pontosD-=1;
+        validar=true;
+      }else{
+        return validar;}
+
+    
     }
+
     
     //remover
     if(existir==null && valor<0){
@@ -423,7 +465,6 @@ class Ficha{
       existir.graduacao-=1;
       pontosD+=1;
       validar=true;}
-    
     }
 
 
