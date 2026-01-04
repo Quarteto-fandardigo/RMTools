@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rmtools/pages/tela_habilidades.dart';
 import 'package:rmtools/pages/tela_listafichas.dart';
 import 'package:rmtools/pages/tela_pericias.dart';
+import 'package:rmtools/pages/tela_poderes.dart';
 import 'package:rmtools/pages/tela_vantagens.dart';
 
 
@@ -177,7 +178,14 @@ class _TelaPersonagemEditarState extends State<TelaPersonagemEditar> {
                       ),
 
                       //função botão
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TelaPoderes(nomePersonagem: widget.nomePersonagem),
+                          ),
+                        );
+                      },
                         
                       //texto botão
                       child: const Text(
