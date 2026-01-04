@@ -190,8 +190,6 @@ class _TelaFichabasicaState extends State<TelaFichabasica> {
                       ),
                     ),
                   ),
-
-                  
                 ],
               ),
             ),

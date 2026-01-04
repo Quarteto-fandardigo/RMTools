@@ -188,6 +188,7 @@ class _TelaHabilidades extends State<TelaHabilidades>{
             ),
           ),
 
+        
           //***Força***
           habilidadeUI("Força:", "forca", forca, (v, p){
             setState(() {

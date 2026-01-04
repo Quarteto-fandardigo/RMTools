@@ -30,7 +30,7 @@ class _TelaPericias extends State<TelaPericias> {
         "Acrobacia" : 0, 
         "Atletismo" : 0,
         "Combate Dis." : 0,
-        "Combate CaC." : 0,
+        "Combate Corpo a corpo" : 0,
         "Enganação" : 0,
         "Especialidade" : 0,
         "Furtividade" : 0,
@@ -39,7 +39,7 @@ class _TelaPericias extends State<TelaPericias> {
         "Investigação" : 0,
         "Percepção" : 0,
         "Persuasão" : 0,
-        "PrestiDig." : 0, 
+        "Prestidigitação" : 0, 
         "Tecnologia" : 0,
         "Tratamento" : 0,
         "Veículos" : 0,
@@ -83,10 +83,14 @@ class _TelaPericias extends State<TelaPericias> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
 
-          Text(
-            nome[0].toUpperCase() + nome.substring(1),
-            style: const TextStyle(color: Colors.white, fontSize: 30),
+          Expanded(
+            child: Text(
+              nome[0].toUpperCase() + nome.substring(1),
+              style: const TextStyle(color: Colors.white, fontSize: 26),
+              softWrap: true,
+            ),
           ),
+          
           Row(
             children: [
 
@@ -220,7 +224,12 @@ class _TelaPericias extends State<TelaPericias> {
           Flexible(
             child: ListView.separated(
               padding: EdgeInsets.zero,
-              separatorBuilder: (context, index) => const Divider(color: Colors.white10),
+              separatorBuilder: (context, index) => Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 350), //<-- limite da linha
+                  child: const Divider(color: Colors.white10),
+                ),
+              ),
               itemCount: pericias.length,
               itemBuilder: (_, i) {
                 final e = pericias.entries.elementAt(i);

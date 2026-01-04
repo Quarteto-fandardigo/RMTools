@@ -291,6 +291,8 @@ Future<void> _alterar(String chave, int delta) async {
             ),
           ),
 
+
+          //***Elementos da lista */
           Flexible(
             child: ListView.separated(
               padding: const EdgeInsets.all(16),
