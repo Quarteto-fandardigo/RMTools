@@ -133,7 +133,7 @@ class _TelaFichaState extends State<TelaListaFicha> {
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.redAccent,
-                                  minimumSize: const Size(135, 40),
+                                  minimumSize: const Size(130, 40),
                                   foregroundColor: Colors.white,
                                   textStyle: TextStyle(
                                     fontSize: 25
@@ -210,7 +210,7 @@ class _TelaFichaState extends State<TelaListaFicha> {
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.blueAccent,
-                                  minimumSize: const Size(135, 40),
+                                  minimumSize: const Size(130, 40),
                                   foregroundColor: Colors.white,
                                   textStyle: TextStyle(
                                     fontSize: 25
@@ -283,9 +283,6 @@ class _TelaFichaState extends State<TelaListaFicha> {
                   style: TextStyle(fontSize: 25),
                 ),
               ),
-
-
-
             ],
           ),
         )
