@@ -147,19 +147,18 @@ class Poder{
 class Vantagem {
   final String nome;
   int graduacao;
-  bool graduavel ;
+  
   Vantagem({
     required this.nome,
     required this.graduacao,
-    this.graduavel=false
+    
   });
 
 
   Map<String,dynamic> toJson(){
     return{
       'nome':nome,
-      'graduacao':graduacao,
-      'graduavel':graduavel
+      'graduacao':graduacao
     };
   }
 
@@ -167,8 +166,7 @@ class Vantagem {
   factory Vantagem.fromJson(Map<String,dynamic>json){
     return Vantagem(
       nome: json['nome'],
-      graduacao: json['graduacao'],
-      graduavel: json['graduavel']
+      graduacao: json['graduacao']
     );
   }
 
@@ -479,13 +477,41 @@ class Ficha{
 
 
   //PODERES
-  Ficha adicionarPoderes({required String nome
-  }){
-
-    poderes.add(Poder(nomePoder: nome));
-    return this;
-
+  bool adicionarPoderes(String nome){
+    bool existe = poderes.any((p) => p.nomePoder == nome);
+    if(!existe ){
+      poderes.add(Poder(nomePoder: nome));
+      return true;
+    }
+  
+    return false;
   }
+  
+  //COMPONENTES
+  bool adicionarComponentes(String nomePoder,String nomeComponente,String efeito,int custoBase,int graduacao){
+    nomePoder
+    
+    if(!existe ){
+      
+      return true;
+    }
+  
+    return false;
+
+  }  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   Map<String, dynamic> toJson() {
     return {
       'np': np,
@@ -530,6 +556,7 @@ class Ficha{
       (json['pontosD'] as num).toInt(),
       );
     }
+
 
 }
 
